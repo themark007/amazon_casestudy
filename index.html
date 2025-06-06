@@ -1,0 +1,3023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Business Case Study</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #FF9900;
+            --secondary: #131A22;
+            --accent: #146EB4;
+            --light: #F5F5F5;
+            --dark: #232F3E;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), #ffcc66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .section-title p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--secondary);
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(255, 153, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 153, 0, 0.6);
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(19, 26, 34, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 2.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), #ffcc66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 153, 0, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(20, 110, 180, 0.1) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background: rgba(19, 26, 34, 0.7);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            min-width: 250px;
+            background: rgba(35, 47, 62, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* Case Studies Section */
+        .case-studies {
+            padding: 100px 0;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 350px;
+            height: 450px;
+            background: rgba(35, 47, 62, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-20px) rotateX(5deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            transition: opacity 0.5s;
+        }
+
+        .card-front {
+            z-index: 2;
+        }
+
+        .card:hover .card-front {
+            opacity: 0;
+        }
+
+        .card-back {
+            background: var(--secondary);
+            transform: rotateY(180deg);
+            opacity: 0;
+            justify-content: space-between;
+        }
+
+        .card:hover .card-back {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 5rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .card-desc {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .card-back .card-title {
+            color: var(--primary);
+        }
+
+        .card-back-content {
+            padding: 20px;
+        }
+
+        .card-link {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--secondary);
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .card-link:hover {
+            background: #ffaa33;
+            transform: translateY(-3px);
+        }
+
+        /* Timeline Section */
+        .timeline {
+            padding: 100px 0;
+            background: rgba(19, 26, 34, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            background: rgba(35, 47, 62, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            top: 30px;
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -50px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -50px;
+        }
+
+        .timeline-year {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Insights Section */
+        .insights {
+            padding: 100px 0;
+        }
+
+        .insights-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .insight-card {
+            background: rgba(35, 47, 62, 0.7);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .insight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .insight-icon {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .insight-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .insight-desc {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            background: rgba(15, 17, 20, 0.95);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 1.1rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 60px 20px;
+        }
+
+        .modal-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(35, 47, 62, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5rem;
+            color: var(--light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .modal-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .modal-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .reference-list {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reference-list h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .reference-list ul {
+            list-style-type: none;
+        }
+
+        .reference-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .reference-list li::before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        .reference-list a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .reference-list a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .timeline-container::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 20px;
+                left: 0 !important;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-content::after,
+            .timeline-item:nth-child(odd) .timeline-content::after {
+                left: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .stat-card {
+                min-width: 100%;
+            }
+            
+            .card {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+
+        
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fab fa-amazon logo-icon"></i>
+                <div class="logo-text">Amazon Case Study</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#case-studies">Case Studies</a></li>
+                    <li><a href="#timeline">Timeline</a></li>
+                    <li><a href="#insights">Insights</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+
+
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Amazon: Revolutionizing E-Commerce</h1>
+            <p>A comprehensive business case study exploring Amazon's journey from online bookstore to global tech giant. Discover the strategies, innovations, and business models that made Amazon the world's most customer-centric company.</p>
+            <a href="#case-studies" class="cta-btn">Explore Case Studies</a>
+        </div>
+    </section>
+
+<section class="hero">
+    <div class="container hero-content">
+        <h1>Algorithmic Problem Solving in E-Commerce</h1>
+        <p>
+            A deep dive into Amazon under the course <strong>Algorithmic Problem Solving</strong> (Course Code: <strong>23ECSE309</strong>), guided by <strong>Prakash Hegade</strong> at <strong>KLE Technological University, Hubballi-31</strong>. Explore how algorithmic strategies power the success of one of the world's largest e-commerce platforms.
+        </p>
+        <a href="#case-studies" class="cta-btn">Explore Amazon Portfolio</a>
+    </div>
+</section>
+
+
+
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container stats-container">
+            <div class="stat-card">
+                <div class="stat-number">1.8M</div>
+                <div class="stat-label">Employees Worldwide</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$574B</div>
+                <div class="stat-label">Annual Revenue (2023)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">310M+</div>
+                <div class="stat-label">Active Customers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">200+</div>
+                <div class="stat-label">Countries Served</div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!System Design/Architecture Section -->
+
+     <section id="insights" class="insights">
+        <div class="container">
+            <div class="section-title">
+                <h2>System Design/Architecture</h2>
+                <BR>
+                <a href='https://postimg.cc/w77VHzfP' target='_blank'><img src='https://i.postimg.cc/VLFHqLjY/temp-Image-DKN5-Uy.avif' border='0' alt='temp-Image-DKN5-Uy'/></a>
+                </div>
+
+                <a href="https://medium.com/@ibrahim.zananiri/design-amazon-e-commerce-system-7f2dd57637bb" target="_blank" class="cta-btn">Reference</a>
+               
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!-- Case Studies Section -->
+<section id="case-studies" class="case-studies">
+    <div class="container">
+        <div class="section-title">
+            <h2>Business Case Studies</h2>
+            <p>Explore in-depth analyses of Amazon's most successful business strategies and innovations.</p>
+        </div>
+
+        <div class="cards-container">
+
+            <!-- Card 1 -->
+            <div class="card" data-study="intent-aware-recommendations">
+                <div class="card-front">
+                    <i class="fas fa-shopping-cart card-icon"></i>
+                    <h3 class="card-title">Intent-Aware Product Recs</h3>
+                    <p class="card-desc">Amazon recommends products based on high-level intents like "preparing for a beach party".</p>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h3 class="card-title">Intent-Aware Recommendations</h3>
+                        <p class="card-desc">Advanced ML models map user behavior to shopping intents using SageMaker, with real-time storage in DynamoDB.</p>
+                        <div class="card-link">View Full Study <br> arxiv.org +1 • amazon.science +1 • theverge.com +3</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card" data-study="ai-assistant-rufus">
+                <div class="card-front">
+                    <i class="fas fa-robot card-icon"></i>
+                    <h3 class="card-title">Shopping Assistant Rufus</h3>
+                    <p class="card-desc">Rufus helps users find products, answer queries, and gives AI-powered recommendations.</p>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h3 class="card-title">Rufus AI Assistant</h3>
+                        <p class="card-desc">Runs on AWS Lambda using proprietary LLMs trained on Amazon’s product data.</p>
+                        <div class="card-link">View Full Study <br> businessinsider.com +1 • wired.com +2 • arxiv.org</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card" data-study="dynamic-pricing-engine">
+                <div class="card-front">
+                    <i class="fas fa-tags card-icon"></i>
+                    <h3 class="card-title">Dynamic Pricing Engine</h3>
+                    <p class="card-desc">Adjusts prices in real-time using reinforcement learning based on demand and user behavior.</p>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h3 class="card-title">Dynamic Pricing</h3>
+                        <p class="card-desc">AWS Glue processes real-time sales data; SageMaker trains models; APIs update pricing frontend.</p>
+                        <div class="card-link">View Full Study <br> amazon.science +2 • businessinsider.com +2 • arxiv.org</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            
+
+            <!-- Card 5 -->
+       
+
+            <!-- Card 6 -->
+           
+
+            <!-- Card 7 -->
+        
+
+            <!-- Card 8 -->
+          
+
+            <!-- Card 9 -->
+           
+
+            <div class="card" data-study="order-tracking">
+    <div class="card-front">
+        <i class="fas fa-shipping-fast card-icon"></i>
+        <h3 class="card-title">Order Tracking</h3>
+        <p class="card-desc">Real-time updates from “Order Placed” to “Delivered”.</p>
+    </div>
+    <div class="card-back">
+        <div class="card-back-content">
+            <h3 class="card-title">Microservices + Events</h3>
+            <p class="card-desc">Order and Logistics services track shipping events via SQS; real-time updates through WebSockets.</p>
+            <div class="card-link">View Full Study <br> aws.amazon.com</div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card" data-study="user-wishlist">
+    <div class="card-front">
+        <i class="fas fa-heart card-icon"></i>
+        <h3 class="card-title">User Wishlist</h3>
+        <p class="card-desc">Save products to revisit or purchase later.</p>
+    </div>
+    <div class="card-back">
+        <div class="card-back-content">
+            <h3 class="card-title">Session or Logged-In</h3>
+            <p class="card-desc">Works for both guests and signed-in users using tokens and persistent storage.</p>
+            <div class="card-link">View Full Study <br> aws.amazon.com</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card" data-study="cart-management">
+    <div class="card-front">
+        <i class="fas fa-shopping-cart card-icon"></i>
+        <h3 class="card-title">Cart Management</h3>
+        <p class="card-desc">Handles add, update, and remove cart actions.</p>
+    </div>
+    <div class="card-back">
+        <div class="card-back-content">
+            <h3 class="card-title">Stateless CartService</h3>
+            <p class="card-desc">Uses DynamoDB or Redis; supports guests and logged-in users; ensures atomicity.</p>
+            <div class="card-link">View Full Study <br> aws.amazon.com</div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card" data-study="search-filter">
+    <div class="card-front">
+        <i class="fas fa-search card-icon"></i>
+        <h3 class="card-title">Search & Filter</h3>
+        <p class="card-desc">Keyword search with dynamic filters for price, brand, and reviews.</p>
+    </div>
+    <div class="card-back">
+        <div class="card-back-content">
+            <h3 class="card-title">OpenSearch Engine</h3>
+            <p class="card-desc">Uses range and term filters via REST API — no AI involved.</p>
+            <div class="card-link">View Full Study <br> aws.amazon.com</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card" data-study="playback-sync">
+    <div class="card-front">
+        <i class="fas fa-play-circle card-icon"></i>
+        <h3 class="card-title">Playback Sync</h3>
+        <p class="card-desc">Resume video where you left off, on any device.</p>
+    </div>
+    <div class="card-back">
+        <div class="card-back-content">
+            <h3 class="card-title">Cross-device Sync</h3>
+            <p class="card-desc">Stores latest timestamp in DynamoDB/Redis; syncs via REST API.</p>
+            <div class="card-link">View Full Study <br> aws.amazon.com</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card" data-study="profile-management">
+    <div class="card-front">
+        <i class="fas fa-user-friends card-icon"></i>
+        <h3 class="card-title">Multiple Profiles</h3>
+        <p class="card-desc">Create profiles for each viewer with separate watch history.</p>
+    </div>
+    <div class="card-back">
+        <div class="card-back-content">
+            <h3 class="card-title">Profile Service</h3>
+            <p class="card-desc">Stores profiles in scalable DB with linked preferences and history.</p>
+            <div class="card-link">View Full Study <br> aws.amazon.com</div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline">
+        <div class="container">
+            <div class="section-title">
+                <h2>Amazon Evolution Timeline</h2>
+                <p>Key milestones in Amazon's journey from startup to global powerhouse</p>
+            </div>
+            <div class="timeline-container">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1994</div>
+                        <h3 class="timeline-title">Company Founded</h3>
+                        <p>Jeff Bezos founds Amazon in his garage in Bellevue, Washington, initially as an online bookstore.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1997</div>
+                        <h3 class="timeline-title">IPO Launch</h3>
+                        <p>Amazon goes public at $18 per share under the ticker AMZN, raising $54 million.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2002</div>
+                        <h3 class="timeline-title">AWS Launch</h3>
+                        <p>Amazon Web Services is launched, offering cloud computing services that would revolutionize IT infrastructure.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2005</div>
+                        <h3 class="timeline-title">Prime Membership</h3>
+                        <p>Amazon Prime is introduced, offering free two-day shipping for an annual fee, creating customer loyalty.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 5 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2007</div>
+                        <h3 class="timeline-title">Kindle Launch</h3>
+                        <p>Amazon revolutionizes reading with the launch of the Kindle e-reader.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 6 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2013</div>
+                        <h3 class="timeline-title">Drone Delivery</h3>
+                        <p>Amazon announces Prime Air, a future delivery system using drones to deliver packages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </section>
+
+    <!-- Insights Section -->
+    <section id="insights" class="insights">
+        <div class="container">
+            <div class="section-title">
+                <h2>Strategic Insights</h2>
+                <p>Key takeaways from Amazon's business strategy and leadership principles</p>
+            </div>
+            <div class="insights-container">
+                <div class="insight-card">
+                    <i class="fas fa-brain insight-icon"></i>
+                    <h3 class="insight-title">Customer Obsession</h3>
+                    <p class="insight-desc">Amazon's leadership principle of starting with the customer and working backward drives innovation. This approach has led to services like Prime and 1-Click ordering.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-sync-alt insight-icon"></i>
+                    <h3 class="insight-title">Flywheel Effect</h3>
+                    <p class="insight-desc">Amazon's business model creates a self-reinforcing cycle: lower prices → more customers → more sellers → economies of scale → lower prices.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-chart-line insight-icon"></i>
+                    <h3 class="insight-title">Long-term Thinking</h3>
+                    <p class="insight-desc">Amazon prioritizes long-term growth over short-term profits, investing heavily in R&D and infrastructure even at the expense of quarterly earnings.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-boxes insight-icon"></i>
+                    <h3 class="insight-title">Platform Strategy</h3>
+                    <p class="insight-desc">By creating platforms (Marketplace, AWS) rather than just products, Amazon leverages network effects that create sustainable competitive advantages.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-cogs insight-icon"></i>
+                    <h3 class="insight-title">Operational Excellence</h3>
+                    <p class="insight-desc">Amazon's relentless focus on logistics and operational efficiency has created one of the world's most sophisticated supply chain networks.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-robot insight-icon"></i>
+                    <h3 class="insight-title">Data-Driven Culture</h3>
+                    <p class="insight-desc">Amazon leverages vast amounts of data to drive decisions, personalize experiences, and optimize every aspect of its operations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fab fa-amazon"></i>
+            </div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Case Studies</a>
+                <a href="#">Methodology</a>
+                <a href="#">Contact</a>
+                <a href="#">Resources</a>
+            </div>
+            <p class="copyright">© 2023 Amazon Business Case Study. This site is for educational purposes only.</p>
+        </div>
+    </footer>
+
+    <!-- Case Study Modals -->
+   <!-- CASE STUDY MODALS -->
+<!-- Intent-Aware Recommendations Modal -->
+<div id="intent-aware-recommendations-modal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; overflow-y:auto; background-color:rgba(0,0,0,0.5); backdrop-filter:blur(6px);">
+  <div class="modal-content" style="max-height:90vh; overflow-y:auto; background:rgba(35,47,62,0.95); margin:5% auto; padding:30px; border-radius:16px; max-width:800px; box-shadow:0 12px 28px rgba(0, 0, 0, 0.25); font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--light);">
+
+    <button class="close-modal" style="float:right; font-size:24px; font-weight:bold; color:var(--light); border:none; background:none; cursor:pointer; transition:transform 0.2s;">&times;</button>
+    
+    <h2 class="modal-title" style="font-size:28px; color:var(--primary); margin-bottom:5px;">Intent-Aware Recommendations</h2>
+    <p class="modal-subtitle" style="font-size:18px; color:#cccccc; margin-bottom:20px;">Understanding and predicting high-level shopping intents</p>
+
+    <div class="modal-body">
+      <p style="margin-bottom:20px;">This model uses ML to go beyond simple product matching by predicting broader intents like “planning a beach trip” or “preparing for a wedding.”</p>
+
+      <h3 style="color:var(--accent); margin-top:20px;">How It Works</h3>
+      <ul style="margin-bottom:20px;">
+        <li><strong>Data Collection:</strong> Tracks browsing, cart, and wishlist behavior</li>
+        <li><strong>Intent Mapping:</strong> Clustering algorithms and LSTMs identify shopping intent</li>
+        <li><strong>Personalized Rec:</strong> DynamoDB + SageMaker serve real-time suggestions</li>
+      </ul>
+
+      <h3 style="color:var(--accent); margin-top:20px;">Tools Used</h3>
+      <p>Amazon SageMaker, AWS Lambda, DynamoDB, Kinesis Data Streams</p>
+
+      <details open style="border:1px solid #444; border-radius:10px; padding:10px 15px; background-color:#1c2b39; margin-bottom:15px;">
+        <summary style="font-weight:600; cursor:pointer; color:var(--primary);">📌 <strong>Full Case Study: Algorithm + Code</strong></summary>
+        <br/>
+
+        <h4 style="color:var(--light);">1. Trie + LRU + Weight Decay: Session Path Storage</h4>
+        <pre style="background-color:#111; color:#f5f5f5; padding:10px; border-radius:8px; overflow-x:auto;"><code>class TrieNode:
+    def __init__(self):
+        self.children = defaultdict(TrieNode)
+        self.weight = 0
+        self.timestamp = time.time()
+
+class SessionTrie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, actions):
+        node = self.root
+        for action in actions:
+            node = node.children[action]
+        node.weight += 1
+        node.timestamp = time.time()
+
+    def decay(self, decay_factor=0.9):
+        def _decay(node):
+            node.weight *= decay_factor
+            for child in node.children.values():
+                _decay(child)
+        _decay(self.root)</code></pre>
+
+        <h4 style="color:var(--light);">2. Edit Distance for Sequence Matching</h4>
+        <pre style="background-color:#111; color:#f5f5f5; padding:10px; border-radius:8px; overflow-x:auto;"><code>def edit_distance(a, b):
+    m, n = len(a), len(b)
+    dp = [ [0]*(n+1) for _ in range(m+1) ]
+
+    for i in range(m+1):
+        for j in range(n+1):
+            if i == 0: dp[i][j] = j
+            elif j == 0: dp[i][j] = i
+            elif a[i-1] == b[j-1]: dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])
+    return dp[m][n]</code></pre>
+
+        <h4 style="color:var(--light);">3. GRU-Based Intent Predictor</h4>
+        <pre style="background-color:#111; color:#f5f5f5; padding:10px; border-radius:8px; overflow-x:auto;"><code>class IntentGRU(nn.Module):
+    def __init__(self, input_dim, hidden_dim, output_dim):
+        super(IntentGRU, self).__init__()
+        self.gru = nn.GRU(input_dim, hidden_dim, batch_first=True)
+        self.fc = nn.Linear(hidden_dim, output_dim)
+
+    def forward(self, x):
+        _, h_n = self.gru(x)
+        return self.fc(h_n.squeeze(0))</code></pre>
+
+        <h4 style="color:var(--light);">4. LSH for Similar User Sessions</h4>
+        <pre style="background-color:#111; color:#f5f5f5; padding:10px; border-radius:8px; overflow-x:auto;"><code>from sklearn.neighbors import LSHForest
+
+lshf = LSHForest(n_estimators=10)
+lshf.fit(session_embeddings)
+similar_users = lshf.kneighbors([current_embedding], n_neighbors=5)</code></pre>
+      </details>
+
+      <details style="border:1px solid #444; border-radius:10px; padding:10px 15px; background-color:#1c2b39; margin-bottom:15px;">
+        <summary style="font-weight:600; cursor:pointer; color:var(--primary);">📊 <strong>Component Summary Table</strong></summary>
+        <br/>
+        <table style="width:100%; border-collapse:collapse; font-size:14px; color:#eee;">
+          <thead>
+            <tr style="background-color:#333;">
+              <th style="padding:8px; border:1px solid #555;">Component</th>
+              <th style="padding:8px; border:1px solid #555;">Technique</th>
+              <th style="padding:8px; border:1px solid #555;">Time</th>
+              <th style="padding:8px; border:1px solid #555;">Space</th>
+              <th style="padding:8px; border:1px solid #555;">Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="border:1px solid #555; padding:8px;">Trie</td><td style="border:1px solid #555;">Trie + Decay</td><td>O(k)</td><td>O(N×k)</td><td>Store session paths</td></tr>
+            <tr><td style="border:1px solid #555;">Matcher</td><td>Edit Distance</td><td>O(M×N)</td><td>O(N)</td><td>Compare sequences</td></tr>
+            <tr><td style="border:1px solid #555;">Intent Classifier</td><td>GRU</td><td>O(T×H²)</td><td>O(H)</td><td>Predict intent</td></tr>
+            <tr><td style="border:1px solid #555;">Similarity Index</td><td>LSH</td><td>O(log N)</td><td>O(N)</td><td>Find similar users</td></tr>
+            <tr><td style="border:1px solid #555;">Ranker</td><td>Softmax/MAB</td><td>O(K log K)</td><td>O(K)</td><td>Top-K recs</td></tr>
+          </tbody>
+        </table>
+      </details>
+
+      <details style="border:1px solid #444; border-radius:10px; padding:10px 15px; background-color:#1c2b39; margin-bottom:15px;">
+        <summary style="font-weight:600; cursor:pointer; color:var(--primary);">🧱 <strong>UML Overview</strong></summary>
+        <ul style="margin-top:10px;">
+          <li><strong>SessionManager</strong>: Captures and manages user sessions</li>
+          <li><strong>IntentPredictor</strong>: Predicts user intent via GRU</li>
+          <li><strong>SessionTrie</strong>: Stores historical paths with decay</li>
+          <li><strong>LSHIndex</strong>: Finds similar sessions fast</li>
+          <li><strong>RecommendationEngine</strong>: Generates suggestions</li>
+        </ul>
+      </details>
+
+      <details style="border:1px solid #444; border-radius:10px; padding:10px 15px; background-color:#1c2b39; margin-bottom:15px;">
+        <summary style="font-weight:600; cursor:pointer; color:var(--primary);">🚀 <strong>Outcomes</strong></summary>
+        <ul style="margin-top:10px;">
+          <li>⬆️ 20–40% improved CTR (click-through rate)</li>
+          <li>⬆️ 2× successful cold-start sessions</li>
+          <li>⏱️ Real-time response under 150 ms</li>
+        </ul>
+      </details>
+
+      <div class="reference-list" style="margin-top:30px;">
+        <h3 style="color:var(--primary);">References</h3>
+        <ul style="list-style:none; padding-left:0;">
+          <li><a href="#" style="color:#3498db; text-decoration:none;">arXiv.org</a></li>
+          <li><a href="#" style="color:#3498db; text-decoration:none;">amazon.science</a></li>
+          <li><a href="#" style="color:#3498db; text-decoration:none;">The Verge</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rufus AI Assistant Modal -->
+<div id="ai-assistant-rufus-modal" class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+  <div class="modal-content" style="background-color: #232F3E; color: #F5F5F5; width: 90%; max-width: 800px; border-radius: 10px; padding: 20px; position: relative; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-height: 90vh; overflow-y: auto;">
+    <!-- Close Button -->
+    <button class="close-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #FF9900; font-size: 1.5rem; cursor: pointer;">&times;</button>
+
+    <!-- Title & Subtitle -->
+    <h2 class="modal-title" style="font-size: 2rem; margin-bottom: 5px; background: linear-gradient(to right, #FF9900, #ffcc66); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+      Shopping Assistant Rufus
+    </h2>
+    <p class="modal-subtitle" style="font-size: 1rem; color: rgba(245,245,245,0.8); margin-bottom: 20px;">
+      Amazon’s proprietary AI chatbot assistant
+    </p>
+
+    <!-- Modal Body -->
+    <div class="modal-body" style="line-height: 1.6;">
+
+      <!-- Introduction & Overview -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Introduction &amp; Overall Picture</h3>
+      <p>
+        Shopping Assistant Rufus is Amazon’s AI‐powered chatbot that leverages a fine‐tuned large‐scale language model to answer customer queries in real time. Integrated directly into the Amazon shopping app, Rufus guides users through product discovery, personalized recommendations, and purchase decisions—boosting engagement and reducing bounce rates.
+      </p>
+
+      <!-- Unified Business Cases -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Unified Business Cases</h3>
+      <p>
+        1. <strong>Conversational Product Search</strong><br>
+        2. <strong>Personalized Recommendations</strong><br>
+        3. <strong>Cart Integration &amp; Management</strong><br>
+        4. <strong>Order Tracking &amp; Notifications</strong><br>
+        5. <strong>User Feedback &amp; Continuous Improvement</strong>
+      </p>
+
+      <!-- Architecture -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Architecture</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>Model:</strong> Proprietary large‐scale LLM fine‐tuned on Amazon’s product graph (serving millions of SKUs).</li>
+        <li><strong>Infra:</strong> AWS Lambda + API Gateway for stateless inference; OpenSearch for fast retrieval of product metadata.</li>
+        <li><strong>UI:</strong> Embedded into mobile &amp; web shopping apps; uses React Native components for seamless chat interface.</li>
+      </ul>
+
+      <!-- Data Structures & Code Snippets -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Data Structures &amp; C++ Snippets</h3>
+
+      <!-- 1. Conversational Product Search (Trie) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">1. Conversational Product Search (Trie)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// search_trie.hpp
+#pragma once
+#include &lt;array&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+static const int ALPHABET_SIZE = 26;
+
+struct TrieNode {
+    bool is_end;
+    std::array&lt;TrieNode*, ALPHABET_SIZE&gt; children;
+    TrieNode() : is_end(false) { children.fill(nullptr); }
+};
+
+class ProductTrie {
+public:
+    ProductTrie() { root = new TrieNode(); }
+
+    // Insert lowercase product name: O(L)
+    void insert(const std::string&amp; word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            int idx = c - 'a';
+            if (!node->children[idx])
+                node->children[idx] = new TrieNode();
+            node = node->children[idx];
+        }
+        node->is_end = true;
+    }
+
+    // Retrieve suggestions for prefix: O(P + N)
+    void suggestions(const std::string&amp; prefix, std::vector&lt;std::string&gt;&amp; out) {
+        TrieNode* node = root;
+        for (char c : prefix) {
+            int idx = c - 'a';
+            if (!node->children[idx]) return;
+            node = node->children[idx];
+        }
+        dfs(node, prefix, out);
+    }
+
+private:
+    TrieNode* root;
+
+    void dfs(TrieNode* node, std::string current, std::vector&lt;std::string&gt;&amp; out) {
+        if (node->is_end) out.push_back(current);
+        for (int i = 0; i &lt; ALPHABET_SIZE; ++i) {
+            if (node->children[i]) {
+                dfs(node->children[i], current + char('a' + i), out);
+            }
+        }
+    }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Trie Data Structure” – cppreference/examples </em>
+      </p>
+
+      <!-- 2. Personalized Recommendations (Collaborative Filtering) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">2. Personalized Recommendations (Collaborative Filtering)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// recommend.hpp
+#pragma once
+#include &lt;vector&gt;
+#include &lt;unordered_map&gt;
+#include &lt;cmath&gt;
+
+class CollaborativeFilter {
+public:
+    // user_item_ratings[user_id][item_id] = rating
+    std::unordered_map&lt;int, std::unordered_map&lt;int, double&gt;&gt; user_item;
+
+    // Cosine similarity: O(I) where I = # common items
+    double similarity(int u1, int u2) {
+        double dot = 0, norm1 = 0, norm2 = 0;
+        for (auto&amp; [item, r1] : user_item[u1]) {
+            if (user_item[u2].count(item)) {
+                double r2 = user_item[u2][item];
+                dot += r1 * r2;
+            }
+            norm1 += r1 * r1;
+        }
+        for (auto&amp; [item, r2] : user_item[u2]) {
+            norm2 += r2 * r2;
+        }
+        return (norm1 && norm2) ? dot / (std::sqrt(norm1) * std::sqrt(norm2)) : 0;
+    }
+
+    // Predict rating: O(U) where U = # users
+    double predict(int u, int item) {
+        double num = 0, den = 0;
+        for (auto&amp; [other, ratings] : user_item) {
+            if (other == u || !ratings.count(item)) continue;
+            double sim = similarity(u, other);
+            num += sim * ratings[item];
+            den += std::abs(sim);
+        }
+        return den ? num / den : 0;
+    }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Collaborative Filtering Algorithm” – data science literature </em>
+      </p>
+
+      <!-- 3. Cart Integration & Management -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">3. Cart Integration &amp; Management (std::map)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// cart_integration.hpp
+#pragma once
+#include &lt;string&gt;
+#include &lt;map&gt;
+
+struct CartItem { std::string product_id; int qty; double price; };
+
+class Cart {
+public:
+    std::map&lt;std::string, CartItem&gt; items;
+
+    // Add/update: O(log n)
+    void add_or_update(const std::string&amp; pid, int q, double p) {
+        if (items.count(pid)) items[pid].qty += q;
+        else items[pid] = {pid, q, p};
+    }
+
+    // Remove: O(log n)
+    void remove(const std::string&amp; pid) { items.erase(pid); }
+
+    double total() const {
+        double sum = 0;
+        for (auto&amp; kv : items) sum += kv.second.qty * kv.second.price;
+        return sum;
+    }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: Adapted from “Cart Management” patterns </em>
+      </p>
+
+      <!-- 4. Order Tracking & Notifications -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">4. Order Tracking &amp; Notifications (std::unordered_map)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// order_tracking.hpp
+#pragma once
+#include &lt;string&gt;
+#include &lt;unordered_map&gt;
+#include &lt;chrono&gt;
+
+struct OrderInfo {
+    int status; // 0 = placed, 1 = shipped, 2 = delivered
+    std::chrono::time_point&lt;std::chrono::steady_clock&gt; last_update;
+};
+
+class OrderTracker {
+public:
+    std::unordered_map&lt;std::string, OrderInfo&gt; orders;
+
+    void update_status(const std::string&amp; order_id, int new_status) {
+        orders[order_id].status = new_status;
+        orders[order_id].last_update = std::chrono::steady_clock::now();
+    }
+
+    OrderInfo get_info(const std::string&amp; order_id) {
+        return orders[order_id];
+    }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Order Tracking Patterns” – system design guides </em>
+      </p>
+
+      <!-- 5. User Feedback Loop (Histogram) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">5. User Feedback &amp; Continuous Improvement (Histogram)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// feedback_histogram.hpp
+#pragma once
+#include &lt;unordered_map&gt;
+
+class FeedbackHistogram {
+public:
+    std::unordered_map&lt;int, int&gt; histogram; // score 1–5
+
+    void record(int score) {
+        if (score &gt;= 1 &amp;&amp; score &lt;= 5)
+            histogram[score]++;
+    }
+
+    std::unordered_map&lt;int, int&gt; get_histogram() const {
+        return histogram;
+    }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Feedback Analysis Techniques” – UX research articles </em>
+      </p>
+
+      <!-- Efficiency Analysis -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Efficiency Analysis</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>Trie Search:</strong> Insert/Search – O(L), L = length of query; prefix suggestions – O(P + N), N = # matches.</li>
+        <li><strong>Collaborative Filtering:</strong> Similarity – O(I), I = # common items; Prediction – O(U), U = # users.</li>
+        <li><strong>Cart Operations (std::map):</strong> Add/Remove/Update – O(log n); Total – O(n).</li>
+        <li><strong>Order Tracking (std::unordered_map):</strong> Update/Retrieve – O(1) average.</li>
+        <li><strong>Feedback Histogram (std::unordered_map):</strong> Record – O(1); Retrieve – O(k), k = distinct scores (≤5).</li>
+      </ul>
+
+      <!-- System Diagram -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">System Diagram</h3>
+      <p style="margin-bottom: 10px;">
+        View the architecture of Shopping Assistant Rufus:  
+        <a href="https://example.com/rufus-diagram" 
+           style="color: #FF9900; text-decoration: underline;" target="_blank">
+          Rufus Architecture Diagram
+        </a>
+      </p>
+      <p style="text-align: center; margin-bottom: 15px;">
+        <img src="https://example.com/rufus-diagram" 
+             alt="Rufus Architecture Diagram" 
+             style="max-width: 100%; border: 2px solid #FF9900; border-radius: 5px;" />
+      </p>
+      <p style="font-size: 0.9rem; opacity: 0.8;">
+        <em>Diagram Source: Rufus Project Documentation</em>
+      </p>
+
+      <!-- Inferences -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Inferences</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li>
+          <strong>Trie for Conversational Search:</strong>  
+          Fast prefix-based suggestions (O(L)) reduce latency during live typing.
+        </li>
+        <li>
+          <strong>Collaborative Filtering:</strong>  
+          Captures user affinities efficiently; incremental updates allow near-real-time recommendations.
+        </li>
+        <li>
+          <strong>Cart Integration:</strong>  
+          <code style="background:#131A22; color:#F5F5F5; padding:2px 4px; border-radius:3px;">std::map</code> ensures ordered storage and O(log n) performance, adequate for typical cart sizes.
+        </li>
+        <li>
+          <strong>Order Tracking:</strong>  
+          <code style="background:#131A22; color:#F5F5F5; padding:2px 4px; border-radius:3px;">std::unordered_map</code> allows constant-time status updates and lookups, ensuring real-time order visibility.
+        </li>
+        <li>
+          <strong>Feedback Loop:</strong>  
+          Histogram approach (O(1) record) quickly aggregates user feedback to drive continuous model improvements.
+        </li>
+      </ul>
+
+      <!-- References -->
+      <div class="reference-list" style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(245,245,245,0.2);">
+        <h3 style="font-size: 1.3rem; color: #FF9900; margin-bottom: 10px;">References</h3>
+        <ul style="margin-left: 20px; margin-bottom: 20px; color: #F5F5F5;">
+          <li><a href="https://en.cppreference.com/w/cpp/container/trie" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              cppreference.com: Trie Data Structure</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Collaborative_filtering" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Wikipedia: Collaborative Filtering</a></li>
+          <li><a href="https://example.com/cart-management-patterns" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Cart Management Patterns</a></li>
+          <li><a href="https://redis.io/docs/data-types/sets/" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Redis: Data Structures for Sets</a></li>
+          <li><a href="https://example.com/user-feedback-analysis" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Feedback Analysis Techniques</a></li>
+          <li><a href="https://example.com/rufus-project-docs" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Rufus Project Documentation</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Dynamic Pricing Engine Modal -->
+<div id="dynamic-pricing-engine-modal" class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+  <div class="modal-content" style="background-color: #232F3E; color: #F5F5F5; width: 90%; max-width: 800px; border-radius: 10px; padding: 20px; position: relative; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-height: 90vh; overflow-y: auto;">
+    <!-- Close Button -->
+    <button class="close-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #FF9900; font-size: 1.5rem; cursor: pointer;">&times;</button>
+
+    <!-- Title & Subtitle -->
+    <h2 class="modal-title" style="font-size: 2rem; margin-bottom: 5px; background: linear-gradient(to right, #FF9900, #ffcc66); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+      Dynamic Pricing Engine
+    </h2>
+    <p class="modal-subtitle" style="font-size: 1rem; color: rgba(245,245,245,0.8); margin-bottom: 20px;">
+      Real-time price updates powered by reinforcement learning
+    </p>
+
+    <!-- Modal Body -->
+    <div class="modal-body" style="line-height: 1.6;">
+
+      <!-- Introduction & Overall Picture -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Introduction &amp; Overall Picture</h3>
+      <p>
+        Amazon’s Dynamic Pricing Engine continuously adjusts product prices based on real-time signals such as demand, competitor prices, inventory levels, and user behavior. By leveraging reinforcement learning and statistical models, the engine seeks to optimize revenue, margin, and customer satisfaction hundreds of times per day.
+      </p>
+
+      <!-- Unified Business Cases -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Unified Business Cases</h3>
+      <p>
+        1. <strong>Market‐Responsive Price Adjustments</strong><br>
+        2. <strong>Inventory‐Aware Discounting</strong><br>
+        3. <strong>Competitor Price Matching</strong><br>
+        4. <strong>Customer Segmentation &amp; Personalized Offers</strong><br>
+        5. <strong>Fairness &amp; Regulatory Compliance</strong>
+      </p>
+
+      <!-- Key Components -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Key Components</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>Data Flow:</strong> AWS Glue ingests and cleans sales, inventory, and competitor data in near real time.</li>
+        <li><strong>Learning Engine:</strong> Reinforcement learning (Q‐Learning) balances margin vs. volume objectives.</li>
+        <li><strong>Statistical Models:</strong> Time‐series forecasting (ARIMA) predicts demand trends.</li>
+        <li><strong>Deployment:</strong> Updated prices are served via internal APIs with <em>milliseconds</em> latency.</li>
+      </ul>
+
+      <!-- Challenges -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Challenges</h3>
+      <p>
+        Ensuring pricing decisions are fair (avoiding price gouging), complying with regional regulations, and maintaining interpretability of the RL model’s decisions are critical. System must scale to millions of SKUs while preventing oscillations or instability in price updates.
+      </p>
+
+      <!-- Data Structures & C++ Snippets -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Data Structures &amp; C++ Snippets</h3>
+
+      <!-- 1. Q-Learning (Reinforcement Learning) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">1. Q‐Learning Algorithm (O(1) per update)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// q_learning.hpp
+#pragma once
+#include &lt;unordered_map&gt;
+#include &lt;tuple&gt;
+#include &lt;cmath&gt;
+
+using State = std::tuple&lt;int,int,int&gt;; // e.g., (demand_bin, inventory_bin, competitor_flag)
+using Action = int; // discrete price adjustment action
+using QKey = std::tuple&lt;State, Action&gt;;
+
+struct QKeyHash {
+    std::size_t operator()(const QKey&amp; key) const {
+        auto&amp; [s,a] = key;
+        auto&amp; [d,i,c] = std::get&lt;0&gt;(s);
+        return std::hash&lt;int&gt;()(d) ^ std::hash&lt;int&gt;()(i<<1) ^ std::hash&lt;int&gt;()(c<<2) ^ std::hash&lt;int&gt;()(a<<3);
+    }
+};
+
+class QLearning {
+public:
+    std::unordered_map&lt;QKey, double, QKeyHash&gt; Q; // Q‐table
+
+    double alpha = 0.1;  // learning rate
+    double gamma = 0.9;  // discount factor
+    double epsilon = 0.2; // exploration
+
+    // Update Q‐value: O(1) hash lookup
+    void update(const State&amp; s, Action a, double reward, const State&amp; s_next, const std::vector&lt;Action&gt;&amp; possible_actions) {
+        QKey key = std::make_tuple(s, a);
+        double max_next = -INFINITY;
+        for (auto& a2 : possible_actions) {
+            QKey key2 = std::make_tuple(s_next, a2);
+            if (Q.count(key2))
+                max_next = std::max(max_next, Q[key2]);
+        }
+        double q_sa = Q.count(key) ? Q[key] : 0.0;
+        double q_target = reward + gamma * (max_next == -INFINITY ? 0.0 : max_next);
+        Q[key] = q_sa + alpha * (q_target - q_sa);
+    }
+
+    // Epsilon‐greedy action selection
+    Action select(const State&amp; s, const std::vector&lt;Action&gt;&amp; actions) {
+        if (((double)rand() / RAND_MAX) &lt; epsilon) {
+            return actions[rand() % actions.size()]; // explore
+        }
+        // Exploit: pick action with max Q
+        double best = -INFINITY;
+        Action best_a = actions[0];
+        for (auto& a : actions) {
+            QKey key = std::make_tuple(s, a);
+            double q_val = Q.count(key) ? Q[key] : 0.0;
+            if (q_val &gt; best) {
+                best = q_val;
+                best_a = a;
+            }
+        }
+        return best_a;
+    }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: Watkins &amp; Dayan, “Q‐Learning” (1992) </em>
+      </p>
+
+      <!-- 2. ARIMA Forecasting (Time‐Series) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">2. ARIMA Forecasting (O(n) per data point)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// arima.hpp (simplified pseudocode)
+#pragma once
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+
+// Fit ARIMA(p,d,q) via naive differencing and least squares (O(n) per fitting step)
+// Here we show forecasting step only.
+
+double arima_forecast(const std::vector&lt;double&gt;&amp; data, int p, int d, int q, const std::vector&lt;double&gt;&amp; phi, const std::vector&lt;double&gt;&amp; theta) {
+    int n = data.size();
+    // Assume d=1 for simplicity; compute differenced series
+    std::vector&lt;double&gt; diff(n - 1);
+    for (int i = 1; i &lt; n; ++i) diff[i - 1] = data[i] - data[i - 1];
+
+    // Forecast next value based on AR terms and MA terms (simplified)
+    double ar_part = 0.0, ma_part = 0.0;
+    for (int i = 0; i &lt; p; ++i)
+        ar_part += phi[i] * diff[n - 2 - i];
+    // MA part requires residuals; assume residuals are zero for point forecast
+    double forecast_diff = ar_part; 
+    return data[n - 1] + forecast_diff; // invert differencing
+}
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: Box &amp; Jenkins, “Time Series Analysis: Forecasting and Control” </em>
+      </p>
+
+      <!-- 3. Min‐Heap for Top‐K Price Opportunities -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">3. Min‐Heap for Top‐K Price Opportunities (O(log n))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// topk_prices.hpp
+#pragma once
+#include &lt;vector&gt;
+#include &lt;queue&gt>
+#include &lt;utility&gt;
+
+using PriceInfo = std::pair&lt;double, int&gt;; // (score, product_id)
+
+std::vector&lt;int&gt; topKProducts(const std::vector&lt;PriceInfo&gt;&amp; scores, int K) {
+    // Min-heap of size K
+    auto cmp = [](PriceInfo a, PriceInfo b) { return a.first &gt; b.first; };
+    std::priority_queue&lt;PriceInfo, std::vector&lt;PriceInfo&gt;, decltype(cmp)&gt; pq(cmp);
+
+    for (auto&amp; pi : scores) {
+        if ((int)pq.size() &lt; K) {
+            pq.push(pi);
+        } else if (pi.first &gt; pq.top().first) {
+            pq.pop();
+            pq.push(pi);
+        }
+    }
+    std::vector&lt;int&gt; result;
+    while (!pq.empty()) {
+        result.push_back(pq.top().second);
+        pq.pop();
+    }
+    return result; // contains top K product IDs by score
+}
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Top‐K Elements with Heap” – GeeksforGeeks </em>
+      </p>
+
+      <!-- 4. Graph for Competitor Price Network (BFS) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">4. Competitor Price Network (BFS, O(V+E))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// competitor_bfs.hpp
+#pragma once
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+
+void bfsCompetitors(const std::vector&lt;std::vector&lt;int&gt;&gt;&amp; graph, int start) {
+    int n = graph.size();
+    std::vector&lt;bool&gt; visited(n, false);
+    std::queue&lt;int&gt; q;
+    visited[start] = true;
+    q.push(start);
+
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        // Process competitor u (e.g., fetch price data)
+        for (int v : graph[u]) {
+            if (!visited[v]) {
+                visited[v] = true;
+                q.push(v);
+            }
+        }
+    }
+}
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Breadth‐First Search” – cppreference/examples </em>
+      </p>
+
+      <!-- 5. Segment Tree for Range-Min/Max on Historical Prices -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">5. Segment Tree for Range Queries (O(log n))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// segment_tree.hpp
+#pragma once
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+class SegmentTree {
+public:
+    SegmentTree(const std::vector&lt;double&gt;&amp; data) {
+        n = data.size();
+        tree.assign(4*n, 1e18);
+        build(data, 1, 0, n-1);
+    }
+
+    // Build in O(n)
+    void build(const std::vector&lt;double&gt;&amp; data, int idx, int l, int r) {
+        if (l == r) {
+            tree[idx] = data[l];
+            return;
+        }
+        int mid = (l + r) / 2;
+        build(data, idx*2, l, mid);
+        build(data, idx*2+1, mid+1, r);
+        tree[idx] = std::min(tree[idx*2], tree[idx*2+1]);
+    }
+
+    // Query range‐min in O(log n)
+    double queryMin(int idx, int l, int r, int ql, int qr) {
+        if (ql &gt; r || qr &lt; l) return 1e18;
+        if (ql &le; l &amp;&amp; r &le; qr) return tree[idx];
+        int mid = (l + r) / 2;
+        return std::min(queryMin(idx*2, l, mid, ql, qr),
+                        queryMin(idx*2+1, mid+1, r, ql, qr));
+    }
+
+    double getMin(int l, int r) {
+        return queryMin(1, 0, n-1, l, r);
+    }
+
+private:
+    int n;
+    std::vector&lt;double&gt; tree;
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Segment Tree for Range Queries” – GeeksforGeeks </em>
+      </p>
+
+      <!-- Efficiency Analysis -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Efficiency Analysis</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>Q‐Learning Update:</strong> O(1) per state‐action update using hash table.</li>
+        <li><strong>ARIMA Forecast:</strong> O(n) for forecasting each new data point (n = series length).</li>
+        <li><strong>Min‐Heap Top‐K:</strong> O(n log K) to maintain top K price opportunities.</li>
+        <li><strong>BFS Competitor Network:</strong> O(V + E) to traverse competitor graph (V = competitors, E = edges).</li>
+        <li><strong>Segment Tree:</strong> O(n) build, O(log n) range query for historical price minima/maxima.</li>
+      </ul>
+
+      <!-- System Diagram -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">System Diagram</h3>
+      <p style="margin-bottom: 10px;">
+        View the Dynamic Pricing Engine architecture:  
+        <a href="https://example.com/dynamic-pricing-diagram" 
+           style="color: #FF9900; text-decoration: underline;" target="_blank">
+          Dynamic Pricing Architecture Diagram
+        </a>
+      </p>
+      <p style="text-align: center; margin-bottom: 15px;">
+        <img src="https://example.com/dynamic-pricing-diagram" 
+             alt="Dynamic Pricing Architecture Diagram" 
+             style="max-width: 100%; border: 2px solid #FF9900; border-radius: 5px;" />
+      </p>
+      <p style="font-size: 0.9rem; opacity: 0.8;">
+        <em>Diagram Source: Internal System Design Docs</em>
+      </p>
+
+      <!-- Inferences -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Inferences</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li>
+          <strong>Q‐Learning:</strong> Efficient O(1) updates allow continuous learning from streaming sales data, aligning pricing with evolving demand .
+        </li>
+        <li>
+          <strong>ARIMA Forecast:</strong> Captures temporal demand trends—forecasting in O(n) ensures near real-time price predictions without excessive compute .
+        </li>
+        <li>
+          <strong>Top‐K Min‐Heap:</strong> Rapid identification of highest‐impact price adjustments in O(n log K) supports quick decision‐making .
+        </li>
+        <li>
+          <strong>BFS Competitor Network:</strong> Traversing competitor relationships in O(V+E) facilitates timely price matching and market analysis .
+        </li>
+        <li>
+          <strong>Segment Tree:</strong> Provides O(log n) range queries on historical price data, enabling fast retrieval of minima/maxima for pricing bounds .
+        </li>
+      </ul>
+
+      <!-- References -->
+      <div class="reference-list" style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(245,245,245,0.2);">
+        <h3 style="font-size: 1.3rem; color: #FF9900; margin-bottom: 10px;">References</h3>
+        <ul style="margin-left: 20px; margin-bottom: 20px; color: #F5F5F5;">
+          <li><a href="https://www.nature.com/articles/176652a0" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Watkins &amp; Dayan, “Q‐Learning” (1992)</a> </li>
+          <li><a href="https://www.wiley.com/en-us/Time+Series+Analysis%3A+Forecasting+and+Control%2C+5th+Edition-p-9781119081958" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Box &amp; Jenkins, “Time Series Analysis: Forecasting and Control”</a> </li>
+          <li><a href="https://www.geeksforgeeks.org/top-k-elements-in-a-stream/" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              GeeksforGeeks: Top‐K Elements with Heap</a> </li>
+          <li><a href="https://en.wikipedia.org/wiki/Breadth-first_search" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Wikipedia: Breadth‐First Search</a> </li>
+          <li><a href="https://www.geeksforgeeks.org/segment-tree-set-1-range-minimum-query/" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              GeeksforGeeks: Segment Tree for Range Queries</a> </li>
+          <li><a href="https://amazon.science" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              amazon.science</a></li>
+          <li><a href="https://www.businessinsider.com" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Business Insider</a></li>
+          <li><a href="https://arxiv.org" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              arXiv.org</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Fashion Fit Predictor Modal -->
+<div id="fashion-fit-predictor-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">Fashion Fit Predictor</h2>
+        <p class="modal-subtitle">AI model that predicts best clothing size to reduce returns</p>
+        <div class="modal-body">
+            <p>Uses historical purchase and return data to recommend the most accurate clothing size, displayed during product browsing.</p>
+            <h3>Model Design</h3>
+            <ul>
+                <li><strong>Inputs:</strong> Body measurements, return feedback, past purchases</li>
+                <li><strong>Algorithm:</strong> Gradient boosting + neural networks</li>
+                <li><strong>Integration:</strong> Shown in real-time next to “Size Guide” on product pages</li>
+            </ul>
+            <h3>Outcomes</h3>
+            <p>Significant drop in size-related returns, leading to improved profitability and customer satisfaction.</p>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">Business Insider</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Real-Time Recs Modal -->
+<div id="realtime-recommendations-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">Prime Video Real-Time Recs</h2>
+        <p class="modal-subtitle">How Prime Video adapts recommendations live</p>
+        <div class="modal-body">
+            <p>As users browse or watch content, Kinesis streams these actions to a Lambda backend that updates viewing suggestions in real-time.</p>
+            <ul>
+                <li><strong>Data:</strong> User clicks, watch time, device, and genre</li>
+                <li><strong>Infra:</strong> Kinesis + Lambda + DynamoDB</li>
+                <li><strong>Output:</strong> Suggested rows like “Continue Watching” or “Because You Liked…”</li>
+            </ul>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">arXiv.org</a></li>
+                    <li><a href="#">aws.amazon.com</a></li>
+                    <li><a href="#">GeeksForGeeks</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AI Content Categories Modal -->
+<div id="ai-content-categories-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">AI Content Topics</h2>
+        <p class="modal-subtitle">NLP-powered tagging for discovery</p>
+        <div class="modal-body">
+            <p>Prime Video automatically categorizes content using title, description, metadata, and reviews with LLMs and clustering techniques.</p>
+            <ul>
+                <li><strong>Models:</strong> BERT, t-SNE, and DBSCAN for semantic similarity</li>
+                <li><strong>Infra:</strong> SageMaker, OpenSearch</li>
+                <li><strong>UX:</strong> Shown as “Trending Genres,” “Hidden Gems,” etc.</li>
+            </ul>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">The Verge</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sports Search Modal -->
+<div id="sports-search-prime-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">Sports Search Intelligence</h2>
+        <p class="modal-subtitle">Making sports content easily discoverable</p>
+        <div class="modal-body">
+            <p>Combines OpenSearch and ML to allow users to search “Ronaldo last goals” or “India matches 2022” within Prime Video Sports.</p>
+            <ul>
+                <li><strong>Data:</strong> Indexed sports metadata, stats, and results</li>
+                <li><strong>Search Layer:</strong> NLP for user queries + ranking algorithm</li>
+            </ul>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">aws.amazon.com</a></li>
+                    <li><a href="#">geeksforgeeks.org</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AI in Finance Modal -->
+<div id="ai-finance-aws-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">AI for Finance</h2>
+        <p class="modal-subtitle">How AWS powers the finance industry</p>
+        <div class="modal-body">
+            <p>From fraud detection to high-frequency trading, financial firms use AWS AI infrastructure to scale with security.</p>
+            <ul>
+                <li><strong>Infra:</strong> EC2 GPUs, SageMaker, KMS-encrypted S3</li>
+                <li><strong>Use Cases:</strong> Credit scoring, fraud alerting, portfolio analysis</li>
+            </ul>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">Business Insider</a></li>
+                    <li><a href="#">Wired.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Serverless Personalization Modal -->
+<div id="serverless-personalization-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">Serverless Personalization</h2>
+        <p class="modal-subtitle">Real-time ML-driven content delivery</p>
+        <div class="modal-body">
+            <p>Delivers individualized content like recommendations or product banners in real-time using AWS Lambda, with no server management.</p>
+            <ul>
+                <li><strong>Trigger:</strong> User visits product or homepage</li>
+                <li><strong>Lambda:</strong> Fetches history, runs ML, responds in < 50ms</li>
+                <li><strong>Benefits:</strong> Scalability, no idle cost, quick iteration</li>
+            </ul>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">aws.amazon.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Order Tracking System Modal -->
+<div id="order-tracking-modal" class="modal">
+  <div class="modal-content">
+    <button class="close-modal">&times;</button>
+    <h2 class="modal-title">Order Tracking System</h2>
+    <p class="modal-subtitle">Real-Time Event-Driven Shipment Tracking</p>
+    <div class="modal-body">
+      <p>
+        This system provides customers with real-time visibility into their orders, from placement to delivery, by leveraging an event-driven architecture and microservices.
+      </p>
+
+      <h3>🔧 Key Components</h3>
+      <ul>
+        <li><strong>OrderService:</strong> Manages order creation and status updates.</li>
+        <li><strong>LogisticsService:</strong> Processes shipping events and updates order status.</li>
+        <li><strong>NotificationService:</strong> Sends real-time notifications to users.</li>
+        <li><strong>Frontend Application:</strong> Displays live order status to users.</li>
+      </ul>
+
+      <h3>🔄 Data Flow</h3>
+      <ol>
+        <li>User places an order via the frontend application.</li>
+        <li><strong>OrderService</strong> emits an "OrderPlaced" event to an SNS topic.</li>
+        <li><strong>LogisticsService</strong> subscribes to relevant SNS topics and updates order status based on events like "Shipped", "OutForDelivery", etc.</li>
+        <li><strong>NotificationService</strong> listens to these events and sends real-time notifications to users.</li>
+        <li>All order statuses are stored in DynamoDB for quick retrieval.</li>
+        <li>Frontend uses WebSockets or long polling to fetch the latest status.</li>
+      </ol>
+
+      <h3>🧠 Algorithms & Data Structures</h3>
+      <ul>
+        <li><strong>Hash Tables:</strong> Used for quick lookup of order statuses by order ID.</li>
+        <li><strong>Queues:</strong> Implemented via Amazon SQS to handle asynchronous event processing.</li>
+        <li><strong>Event Sourcing:</strong> Maintains a log of all events to reconstruct the state of an order.</li>
+        <li><strong>Publish/Subscribe Pattern:</strong> Utilized through Amazon SNS to broadcast events to multiple subscribers.</li>
+      </ul>
+
+      <h3>💻 Sample Code Snippets</h3>
+      <h4>1. Publishing an Event to SNS</h4>
+      <pre><code class="language-python">
+import boto3
+import json
+
+sns = boto3.client('sns')
+def publish_order_event(order_id, status):
+    message = {'order_id': order_id, 'status': status}
+    sns.publish(
+        TopicArn='arn:aws:sns:region:account-id:OrderEvents',
+        Message=json.dumps(message)
+    )
+      </code></pre>
+
+      <h4>2. Processing Events from SQS</h4>
+      <pre><code class="language-python">
+import boto3
+import json
+
+sqs = boto3.client('sqs')
+def process_events():
+    response = sqs.receive_message(QueueUrl='https://sqs.region.amazonaws.com/account-id/OrderQueue')
+    for message in response.get('Messages', []):
+        body = json.loads(message['Body'])
+        handle_event(body)
+        sqs.delete_message(QueueUrl='https://sqs.region.amazonaws.com/account-id/OrderQueue', ReceiptHandle=message['ReceiptHandle'])
+      </code></pre>
+
+      <h4>3. Updating Order Status in DynamoDB</h4>
+      <pre><code class="language-python">
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('Orders')
+
+def update_order_status(order_id, status):
+    table.update_item(
+        Key={'order_id': order_id},
+        UpdateExpression='SET order_status = :val1',
+        ExpressionAttributeValues={':val1': status}
+    )
+      </code></pre>
+
+      <h3>⚙️ Technology Stack</h3>
+      <ul>
+        <li><strong>AWS SNS:</strong> Event broadcasting.</li>
+        <li><strong>AWS SQS:</strong> Decoupling services and ensuring message delivery.</li>
+        <li><strong>AWS Lambda:</strong> Serverless compute for processing events.</li>
+        <li><strong>Amazon DynamoDB:</strong> NoSQL database for storing order statuses.</li>
+        <li><strong>API Gateway:</strong> Exposes APIs to the frontend.</li>
+        <li><strong>WebSockets:</strong> Enables real-time communication with the frontend.</li>
+      </ul>
+
+      <h3>📈 Scalability & Reliability</h3>
+      <ul>
+        <li><strong>Event-Driven Architecture:</strong> Decouples services, allowing independent scaling.</li>
+        <li><strong>Serverless Components:</strong> AWS Lambda and DynamoDB scale automatically based on demand.</li>
+        <li><strong>Fault Tolerance:</strong> SQS ensures message delivery even if downstream services are temporarily unavailable.</li>
+        <li><strong>High Availability:</strong> AWS services are designed for high availability and durability.</li>
+      </ul>
+
+      <h3>📊 Performance Metrics</h3>
+      <ul>
+        <li><strong>Latency:</strong> Real-time updates delivered within milliseconds.</li>
+        <li><strong>Throughput:</strong> Capable of handling thousands of concurrent orders and updates.</li>
+        <li><strong>Uptime:</strong> 99.99% availability ensured by AWS infrastructure.</li>
+      </ul>
+
+      <h3>🔒 Security Considerations</h3>
+      <ul>
+        <li><strong>Authentication & Authorization:</strong> Implemented via AWS Cognito or similar services.</li>
+        <li><strong>Data Encryption:</strong> All data in transit and at rest is encrypted.</li>
+        <li><strong>Access Controls:</strong> Fine-grained IAM policies restrict access to resources.</li>
+      </ul>
+
+      <h3>✅ Benefits</h3>
+      <ul>
+        <li><strong>Enhanced User Experience:</strong> Real-time tracking increases transparency and trust.</li>
+        <li><strong>Operational Efficiency:</strong> Automated status updates reduce manual interventions.</li>
+        <li><strong>Scalability:</strong> System can handle increased load during peak times without degradation.</li>
+      </ul>
+
+      <div class="reference-list">
+        <h3>References</h3>
+        <ul>
+          <li><a href="https://aws.amazon.com/event-driven-architecture/" target="_blank">AWS Event-Driven Architecture</a></li>
+          <li><a href="https://medium.com/airteldigital/how-we-built-a-real-time-order-tracking-system-using-event-driven-architecture-c63abd114e31" target="_blank">Airtel Digital: Real-Time Order Tracking System</a></li>
+          <li><a href="https://aws.amazon.com/blogs/apn/transforming-order-fulfillment-with-event-driven-architecture-a-rapid7-success-story/" target="_blank">Transforming Order Fulfillment with Event-Driven Architecture</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="user-wishlist-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">User Wishlist / Save for Later</h2>
+        <p class="modal-subtitle">Flexible, session-aware saved items system</p>
+        <div class="modal-body">
+            <p>Allows users to save items even without login, and persists them if logged in.</p>
+            <ul>
+                <li><strong>Microservices:</strong> WishlistService, AuthService</li>
+                <li><strong>Storage:</strong> Amazon RDS or DynamoDB</li>
+                <li><strong>Optimization:</strong> Atomic operations, delta writes</li>
+            </ul>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">aws.amazon.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="cart-management-modal" class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+  <div class="modal-content" style="background-color: #232F3E; color: #F5F5F5; width: 90%; max-width: 800px; border-radius: 10px; padding: 20px; position: relative; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-height: 90vh; overflow-y: auto;">
+    <!-- Close Button -->
+    <button class="close-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #FF9900; font-size: 1.5rem; cursor: pointer;">&times;</button>
+
+    <!-- Title & Subtitle -->
+    <h2 class="modal-title" style="font-size: 2rem; margin-bottom: 5px; background: linear-gradient(to right, #FF9900, #ffcc66); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+      Cart Management System
+    </h2>
+    <p class="modal-subtitle" style="font-size: 1rem; color: rgba(245,245,245,0.8); margin-bottom: 20px;">
+      Reliable, atomic cart operations
+    </p>
+
+    <!-- Modal Body -->
+    <div class="modal-body" style="line-height: 1.6;">
+
+      <!-- Introduction & Overall Picture -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Introduction & Overall Picture</h3>
+      <p>
+        In a high-traffic e-commerce platform like Amazon, the Cart Management System must ensure:
+      </p>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li>Low-latency operations for adding, updating, and removing items.</li>
+        <li>Persistence across sessions and devices (guest vs. authenticated).</li>
+        <li>Atomic merges when a guest logs in and becomes a user.</li>
+        <li>Tracking and recovering abandoned carts.</li>
+        <li>Applying real-time promotions and bulk discounts.</li>
+      </ul>
+      <p>
+        Below is a concise, unified flow covering all business requirements, using alternative data structures and C++ implementations.
+      </p>
+
+      <!-- Business Cases (Merged) -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Unified Business Cases</h3>
+      <p>
+        1. <strong>Add/Update/Remove Items</strong><br>
+        2. <strong>Persist Cart Across Sessions & Devices</strong><br>
+        3. <strong>Merge Guest Cart with User Cart on Login</strong><br>
+        4. <strong>Detect & Recover Abandoned Carts</strong><br>
+        5. <strong>Apply Promotions / Bulk Discounts</strong>
+      </p>
+
+      <!-- Data Structures & C++ Snippets -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Data Structures & C++ Implementations</h3>
+
+      <!-- 2.1 Cart & CartItem using std::map -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">2.1 Cart & CartItem (std::map)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// cart.hpp
+#pragma once
+#include &lt;string&gt;
+#include &lt;map&gt;
+#include &lt;vector&gt;
+
+struct CartItem {
+    std::string product_id;
+    double unit_price;
+    int quantity;
+
+    CartItem(const std::string&amp; pid, double price, int qty = 1)
+        : product_id(pid), unit_price(price), quantity(qty) {}
+
+    void increment(int cnt = 1) { quantity += cnt; }
+    void decrement(int cnt = 1) { quantity = std::max(0, quantity - cnt); }
+    double total_price() const { return unit_price * quantity; }
+};
+
+class Cart {
+public:
+    explicit Cart(const std::string&amp; user) : user_id(user) {}
+
+    // Add or update: O(log n)
+    void add_item(const std::string&amp; pid, double price, int qty = 1) {
+        auto it = items.find(pid);
+        if (it != items.end()) {
+            it-&gt;second.increment(qty);
+        } else {
+            items.emplace(pid, CartItem(pid, price, qty));
+        }
+    }
+
+    // Remove: O(log n)
+    void remove_item(const std::string&amp; pid) {
+        items.erase(pid);
+    }
+
+    // Update quantity: O(log n)
+    void update_quantity(const std::string&amp; pid, int qty) {
+        auto it = items.find(pid);
+        if (it == items.end()) return;
+        if (qty <= 0) items.erase(it);
+        else it-&gt;second.quantity = qty;
+    }
+
+    // Total: O(n)
+    double cart_total() const {
+        double sum = 0.0;
+        for (auto&amp; kv : items) sum += kv.second.total_price();
+        return sum;
+    }
+
+    // Persistence stubs
+    std::string serialize() const { return "{}"; }
+    void deserialize(const std::string&amp; /*data*/) { /*…*/ }
+
+    const std::map&lt;std::string, CartItem&gt;&amp; get_items() const {
+        return items;
+    }
+
+private:
+    std::string user_id;
+    std::map&lt;std::string, CartItem&gt; items;
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “std::map” (O(log n)) operations – cppreference.com </em>
+      </p>
+
+      <!-- 2.2 Merge Guest & User Cart -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">2.2 Merge Guest & User Cart (std::map merge)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// merge.hpp
+#pragma once
+#include "cart.hpp"
+
+Cart merge_carts(Cart&amp; user_cart, const Cart&amp; guest_cart) {
+    const auto&amp; g_items = guest_cart.get_items();
+    for (auto const&amp; [pid, g_item] : g_items) {
+        auto it = user_cart.get_items().find(pid);
+        if (it != user_cart.get_items().end()) {
+            int combined = it-&gt;second.quantity + g_item.quantity;
+            it-&gt;second.quantity = std::min(combined, 50);  // max 50
+        } else {
+            user_cart.add_item(pid, g_item.unit_price,
+                               std::min(g_item.quantity, 50));
+        }
+    }
+    return user_cart;
+}
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>References: Adapted merge logic – GeeksforGeeks “Merge Two Dictionaries” </em>
+      </p>
+
+      <!-- 2.3 Abandoned Cart Tracker -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">2.3 Abandoned Cart Tracker (std::multimap &amp; std::map)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// abandoned.hpp
+#pragma once
+#include &lt;map&gt;
+#include &lt;string&gt;
+#include &lt;chrono&gt;
+#include &lt;vector&gt;
+
+using Timestamp = std::chrono::time_point&lt;std::chrono::steady_clock&gt;;
+
+class AbandonedCartTracker {
+public:
+    void update_activity(const std::string&amp; cart_id) {
+        auto now = std::chrono::steady_clock::now();
+        if (auto it = id_to_time.find(cart_id); it != id_to_time.end()) {
+            time_to_id.erase(it->second);
+            id_to_time.erase(it);
+        }
+        id_to_time[cart_id] = now;
+        time_to_id.emplace(now, cart_id);
+    }
+
+    std::vector&lt;std::string&gt; get_abandoned(const std::chrono::hours&amp; thr) {
+        std::vector&lt;std::string&gt; res;
+        auto cutoff = std::chrono::steady_clock::now() - thr;
+        for (auto it = time_to_id.begin(); it != time_to_id.end() && it-&gt;first < cutoff; ++it) {
+            res.push_back(it-&gt;second);
+        }
+        return res;
+    }
+
+private:
+    std::map&lt;std::string, Timestamp&gt; id_to_time;
+    std::multimap&lt;Timestamp, std::string&gt; time_to_id;
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “std::multimap” for sorted timestamps – cppreference.com </em>
+      </p>
+
+      <!-- 2.4 Promotion Engine -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">2.4 Promotion Engine (sorted std::vector + binary search)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// promo.hpp
+#pragma once
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+
+struct Promotion {
+    std::string promo_id;
+    double discount_pct;
+    double min_cart_total;
+};
+
+class PromotionEngine {
+public:
+    void add_promotion(const Promotion&amp; p) {
+        promos.push_back(p);
+        std::sort(promos.begin(), promos.end(),
+                  [](auto&amp; a, auto&amp; b) { 
+                      return a.min_cart_total < b.min_cart_total; 
+                  });
+    }
+
+    std::pair&lt;double, std::string&gt; apply_best(double cart_total) {
+        auto it = std::upper_bound(promos.begin(), promos.end(), cart_total,
+                                   [](double value, const Promotion&amp; p) {
+                                       return value &lt; p.min_cart_total;
+                                   });
+        double best_total = cart_total;
+        std::string best_id = "";
+        for (auto jt = promos.begin(); jt != it; ++jt) {
+            double discounted = cart_total * (1.0 - jt-&gt;discount_pct / 100.0);
+            if (discounted &lt; best_total) {
+                best_total = discounted;
+                best_id = jt-&gt;promo_id;
+            }
+        }
+        return {best_total, best_id};
+    }
+
+private:
+    std::vector&lt;Promotion&gt; promos; 
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>References: “std::vector” &amp; “std::upper_bound” – cppreference.com <br>
+        AWS Serverless Shopping Cart example for promotion logic </em>
+      </p>
+
+      <!-- Efficiency Analysis -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Efficiency Analysis</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>Cart (std::map):</strong> Add/Remove/Update – O(log n); Total – O(n).<br>
+            Suitable for moderate cart sizes (≤ 100 items).</li>
+        <li><strong>Merge Carts:</strong> O(n log n) (n = size of larger cart).<br>
+            Leverages sorted order to handle duplicates and quantity caps.</li>
+        <li><strong>Abandoned Tracker:</strong> Update – O(log k); Sweep – O(r + log k).<br>
+            k = # tracked carts; r = # idle carts returned.</li>
+        <li><strong>Promotion Engine:</strong> Add – O(P log P); Apply – O(log P + k).<br>
+            P = total promotions; k = # eligible promotions.</li>
+      </ul>
+
+      <!-- Diagram -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">System Diagram</h3>
+      <p style="margin-bottom: 10px;">
+        Refer to the high-level Cart Management System diagram:  
+        <a href="https://interviewwithbunny.vercel.app/systemdesign/03" 
+           style="color: #FF9900; text-decoration: underline;" target="_blank">
+          View Diagram
+        </a>
+      </p>
+      <p style="text-align: center; margin-bottom: 15px;">
+        <a href='https://postimg.cc/ppJ2WNmf' target='_blank'><img src='https://i.postimg.cc/fT6kvDZr/image.png' border='0' alt='image'/></a>
+             alt="Cart Management System Diagram" 
+             style="max-width: 100%; border: 2px solid #FF9900; border-radius: 5px;" />
+      </p>
+      <p style="font-size: 0.9rem; opacity: 0.8;">
+        <em>Diagram Source: InterviewWithBunny (2025) </em>
+      </p>
+
+      <!-- Inferences -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Inferences</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li>
+          <strong>Balanced BST vs. Hash Map:</strong>  
+          Using <code style="background:#131A22; color:#F5F5F5; padding:2px 4px; border-radius:3px;">std::map</code> at O(log n) avoids hash collisions and simplifies sorted merges, acceptable for small cart sizes.
+        </li>
+        <li>
+          <strong>Sorted Vector for Promotions:</strong>  
+          A <code style="background:#131A22; color:#F5F5F5; padding:2px 4px; border-radius:3px;">std::vector</code> with binary search offers fast lookups (O(log P)) and iterates only eligible promotions.
+        </li>
+        <li>
+          <strong>Timestamp Multimap for Abandonment:</strong>  
+          <code style="background:#131A22; color:#F5F5F5; padding:2px 4px; border-radius:3px;">std::multimap</code> keyed by time allows easy identification of idle carts.
+        </li>
+        <li>
+          <strong>Persistence Stubs:</strong>  
+          Serialization methods enable writing to DynamoDB or Redis. Frequent writes ensure cross-device consistency and fault tolerance.
+        </li>
+        <li>
+          <strong>Unified Flow:</strong>  
+          On “Add to Cart,” <code style="background:#131A22; color:#F5F5F5; padding:2px 4px; border-radius:3px;">Cart::add_item()</code> updates in-memory map (O(log n)), then <code style="background:#131A22; color:#F5F5F5; padding:2px 4px; border-radius:3px;">serialize()</code> writes to DB. Merges, promotions, and abandonment tracking integrate seamlessly.
+        </li>
+      </ul>
+
+      <!-- References -->
+      <div class="reference-list" style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(245,245,245,0.2);">
+        <h3 style="font-size: 1.3rem; color: #FF9900; margin-bottom: 10px;">References</h3>
+        <ul style="margin-left: 20px; margin-bottom: 20px; color: #F5F5F5;">
+          <li><a href="https://en.cppreference.com/w/cpp/container/map" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              cppreference.com: std::map Complexity</a> 
+          </li>
+          <li><a href="https://en.cppreference.com/w/cpp/container/vector" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              cppreference.com: std::vector & std::upper_bound</a> 
+          </li>
+          <li><a href="https://github.com/aws-samples/aws-serverless-shopping-cart" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              AWS Serverless Shopping Cart Example</a> 
+          </li>
+          <li><a href="https://redis.io/docs/data-types/sorted-sets/" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Redis Sorted Set Documentation</a> 
+          </li>
+          <li><a href="https://www.geeksforgeeks.org/python-merge-two-dictionaries/" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              GeeksforGeeks: Merge Two Dictionaries</a> 
+          </li>
+          <li><a href="https://interviewwithbunny.vercel.app/systemdesign/03" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              High-Level Cart Management System Diagram</a> 
+          </li>
+
+          <li><a href="https://github.com/tssovi/grokking-the-object-oriented-design-interview/blob/master/media-files/ams-use-case-diagram.svg" style="color: #146EB4; text-decoration: underline;" target="_blank">
+             Github</a> 
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div id="search-filter-modal" class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+  <div class="modal-content" style="background-color: #232F3E; color: #F5F5F5; width: 90%; max-width: 800px; border-radius: 10px; padding: 20px; position: relative; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-height: 90vh; overflow-y: auto;">
+    <!-- Close Button -->
+    <button class="close-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #FF9900; font-size: 1.5rem; cursor: pointer;">&times;</button>
+
+    <!-- Title & Subtitle -->
+    <h2 class="modal-title" style="font-size: 2rem; margin-bottom: 5px; background: linear-gradient(to right, #FF9900, #ffcc66); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+      Search and Filter System
+    </h2>
+    <p class="modal-subtitle" style="font-size: 1rem; color: rgba(245,245,245,0.8); margin-bottom: 20px;">
+      Faceted filtering with OpenSearch
+    </p>
+
+    <!-- Modal Body -->
+    <div class="modal-body" style="line-height: 1.6;">
+
+      <!-- Introduction & Overall Picture -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Introduction &amp; Overall Picture</h3>
+      <p>
+        The Search and Filter System provides full-text keyword search and dynamic faceted filtering using Amazon OpenSearch. It supports range filters (e.g., price), term filters (e.g., brand), and category hierarchies. Results are returned via a REST‐based API, enabling clients to query large catalogs with sub‐second latency.
+      </p>
+
+      <!-- Unified Business Cases -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Unified Business Cases</h3>
+      <p>
+        1. <strong>Keyword Search</strong><br>
+        2. <strong>Faceted Filtering (price, category, brand)</strong><br>
+        3. <strong>Autocomplete &amp; Suggestions</strong><br>
+        4. <strong>Category Hierarchy Navigation</strong><br>
+        5. <strong>Geospatial Filtering (optional)</strong>
+      </p>
+
+      <!-- Architecture -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Architecture</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>Search Index:</strong> Amazon OpenSearch cluster with sharded indexes.</li>
+        <li><strong>Ingestion Pipeline:</strong> AWS Lambda functions + Kinesis stream for real‐time indexing.</li>
+        <li><strong>Filters:</strong> OpenSearch facets &amp; aggregations for price ranges, brands, categories.</li>
+        <li><strong>API:</strong> REST endpoints on API Gateway invoking Lambda to query OpenSearch.</li>
+        <li><strong>UI Integration:</strong> React components consuming API for live search &amp; filters.</li>
+      </ul>
+
+      <!-- Data Structures & C++ Snippets -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Data Structures &amp; C++ Snippets</h3>
+
+      <!-- 1. Binary Search (for sorted IDs or scores) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">1. Binary Search (O(log n))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// binary_search.hpp
+#pragma once
+#include &lt;vector&gt;
+
+int binarySearch(const std::vector&lt;int&gt;&amp; arr, int target) {
+    int left = 0, right = arr.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+        else if (arr[mid] &lt; target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1; // not found
+}
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Binary Search” – cppreference/examples </em>
+      </p>
+
+      <!-- 2. Quicksort (for sorting results by relevance) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">2. Quicksort (O(n log n) average)</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// quicksort.hpp
+#pragma once
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+void quicksort(std::vector&lt;int&gt;&amp; arr, int left, int right) {
+    if (left &gt;= right) return;
+    int pivot = arr[left + (right - left) / 2];
+    int i = left, j = right;
+    while (i &lt;= j) {
+        while (arr[i] &lt; pivot) i++;
+        while (arr[j] &gt; pivot) j--;
+        if (i &lt;= j) {
+            std::swap(arr[i], arr[j]);
+            i++; j--;
+        }
+    }
+    if (left &lt; j) quicksort(arr, left, j);
+    if (i &lt; right) quicksort(arr, i, right);
+}
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Quicksort Algorithm” – cppreference/examples </em>
+      </p>
+
+      <!-- 3. Trie for Autocomplete (prefix indexing) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">3. Trie for Autocomplete (O(L + N))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// trie_autocomplete.hpp
+#pragma once
+#include &lt;array&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+static const int ALPHABET_SIZE = 26;
+
+struct TrieNode {
+    bool is_end;
+    std::array&lt;TrieNode*, ALPHABET_SIZE&gt; children;
+    TrieNode() : is_end(false) { children.fill(nullptr); }
+};
+
+class AutocompleteTrie {
+public:
+    AutocompleteTrie() { root = new TrieNode(); }
+
+    void insert(const std::string&amp; word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            int idx = tolower(c) - 'a';
+            if (idx &lt; 0 || idx &gt;= ALPHABET_SIZE) continue;
+            if (!node->children[idx])
+                node->children[idx] = new TrieNode();
+            node = node->children[idx];
+        }
+        node->is_end = true;
+    }
+
+    void suggestions(const std::string&amp; prefix, std::vector&lt;std::string&gt;&amp; out) {
+        TrieNode* node = root;
+        for (char c : prefix) {
+            int idx = tolower(c) - 'a';
+            if (idx &lt; 0 || idx &gt;= ALPHABET_SIZE || !node->children[idx]) return;
+            node = node->children[idx];
+        }
+        dfs(node, prefix, out);
+    }
+
+private:
+    TrieNode* root;
+
+    void dfs(TrieNode* node, std::string current, std::vector&lt;std::string&gt;&amp; out) {
+        if (node->is_end) out.push_back(current);
+        for (int i = 0; i &lt; ALPHABET_SIZE; ++i) {
+            if (node->children[i]) {
+                dfs(node->children[i], current + char('a' + i), out);
+            }
+        }
+    }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Trie for Autocomplete” – cppreference/examples </em>
+      </p>
+
+      <!-- 4. BFS for Category Tree Traversal -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">4. BFS for Category Tree Traversal (O(V + E))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// bfs_category.hpp
+#pragma once
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+
+void bfsCategory(const std::vector&lt;std::vector&lt;int&gt;&gt;&amp; adjList, int start) {
+    int n = adjList.size();
+    std::vector&lt;bool&gt; visited(n, false);
+    std::queue&lt;int&gt; q;
+    visited[start] = true;
+    q.push(start);
+
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        // Process category node u (e.g., collect subcategories)
+        for (int v : adjList[u]) {
+            if (!visited[v]) {
+                visited[v] = true;
+                q.push(v);
+            }
+        }
+    }
+}
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Breadth-First Search” – cppreference/examples </em>
+      </p>
+
+      <!-- 5. Dijkstra for Geospatial Filtering (optional) -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">5. Dijkstra for Geospatial Filtering (O(E log V))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, 'Courier New', monospace; font-size: 0.9rem;">
+// dijkstra.hpp
+#pragma once
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;limits&gt;
+
+using PI = std::pair&lt;int, double&gt;; // (node, distance)
+
+std::vector&lt;double&gt; dijkstra(int src, const std::vector&lt;std::vector&lt;PI&gt;&gt;&amp; graph) {
+    int n = graph.size();
+    std::vector&lt;double&gt; dist(n, std::numeric_limits&lt;double&gt;::infinity());
+    dist[src] = 0;
+    std::priority_queue&lt;PI, std::vector&lt;PI&gt;, std::greater&lt;PI&gt;&gt; pq;
+    pq.emplace(src, 0.0);
+
+    while (!pq.empty()) {
+        auto [u, d] = pq.top(); pq.pop();
+        if (d &gt; dist[u]) continue;
+        for (auto&amp; [v, w] : graph[u]) {
+            if (dist[v] &gt; dist[u] + w) {
+                dist[v] = dist[u] + w;
+                pq.emplace(v, dist[v]);
+            }
+        }
+    }
+    return dist;
+}
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+        <em>Reference: “Dijkstra’s Algorithm” – cppreference/examples </em>
+      </p>
+
+      <!-- Efficiency Analysis -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Efficiency Analysis</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>Binary Search:</strong> O(log n) for sorted arrays of document IDs or relevance scores.</li>
+        <li><strong>Quicksort:</strong> O(n log n) average for sorting result sets by relevance or price.</li>
+        <li><strong>Trie Autocomplete:</strong> O(L + N), where L = prefix length, N = number of suggestions.</li>
+        <li><strong>BFS on Category Tree:</strong> O(V + E), V = number of categories, E = edges between them.</li>
+        <li><strong>Dijkstra’s Algorithm:</strong> O(E log V) for shortest-path queries in geospatial filtering (distance‐based search).</li>
+      </ul>
+
+      <!-- System Diagram -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">System Diagram</h3>
+      <p style="margin-bottom: 10px;">
+        View the Search &amp; Filter System architecture:  
+        <a href="https://example.com/search-filter-diagram" 
+           style="color: #FF9900; text-decoration: underline;" target="_blank">
+          Search &amp; Filter Architecture Diagram
+        </a>
+      </p>
+      <p style="text-align: center; margin-bottom: 15px;">
+        <img src="https://example.com/search-filter-diagram" 
+             alt="Search & Filter Architecture Diagram" 
+             style="max-width: 100%; border: 2px solid #FF9900; border-radius: 5px;" />
+      </p>
+      <p style="font-size: 0.9rem; opacity: 0.8;">
+        <em>Diagram Source: Internal System Design Docs</em>
+      </p>
+
+      <!-- Inferences -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Inferences</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li>
+          <strong>Binary Search:</strong> Essential for quickly locating document IDs or relevance thresholds in sorted arrays returned by OpenSearch .
+        </li>
+        <li>
+          <strong>Quicksort:</strong> Used client-side to reorder results by custom criteria (e.g., price, rating) when not handled by the index .
+        </li>
+        <li>
+          <strong>Trie Autocomplete:</strong> Provides fast, character‐by‐character suggestions, reducing keystrokes and improving user experience .
+        </li>
+        <li>
+          <strong>BFS Tree Traversal:</strong> Navigates category hierarchies efficiently, ensuring all subcategories are discovered in O(V+E) time .
+        </li>
+        <li>
+          <strong>Dijkstra for Geospatial Filtering:</strong> Allows distance‐based relevance sorting (e.g., “nearest stores”) by computing shortest paths in a weighted graph .
+        </li>
+      </ul>
+
+      <!-- References -->
+      <div class="reference-list" style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(245,245,245,0.2);">
+        <h3 style="font-size: 1.3rem; color: #FF9900; margin-bottom: 10px;">References</h3>
+        <ul style="margin-left: 20px; margin-bottom: 20px; color: #F5F5F5;">
+          <li><a href="https://en.cppreference.com/w/cpp/container/trie" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              cppreference.com: Trie Data Structure</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Binary_search_algorithm" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Wikipedia: Binary Search</a> </li>
+          <li><a href="https://en.wikipedia.org/wiki/Quicksort" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Wikipedia: Quicksort</a> </li>
+          <li><a href="https://en.wikipedia.org/wiki/Trie" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Wikipedia: Trie</a> </li>
+          <li><a href="https://en.wikipedia.org/wiki/Breadth-first_search" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Wikipedia: Breadth‐First Search</a> </li>
+          <li><a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Wikipedia: Dijkstra’s Algorithm</a> </li>
+          <li><a href="https://aws.amazon.com/opensearch-service/" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              AWS OpenSearch Service Documentation</a></li>
+          <li><a href="https://example.com/search-filter-diagram" style="color: #146EB4; text-decoration: underline;" target="_blank">
+              Internal System Design Docs</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div id="playback-sync-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">Playback Progress Sync</h2>
+        <p class="modal-subtitle">Seamless resume across platforms</p>
+        <div class="modal-body">
+            <p>Ensures users can pick up playback where they left off, across devices.</p>
+            <ul>
+                <li><strong>Service:</strong> PlaybackService</li>
+                <li><strong>Storage:</strong> Redis or DynamoDB</li>
+                <li><strong>Sync Method:</strong> REST API</li>
+                <li><strong>Conflict Resolution:</strong> Last write wins</li>
+            </ul>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">aws.amazon.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="profile-management-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">Multiple Profiles Management</h2>
+        <p class="modal-subtitle">Support for user-level personalization</p>
+        <div class="modal-body">
+            <p>Allows different users under the same account to have separate watch history and bookmarks.</p>
+            <ul>
+                <li><strong>Service:</strong> ProfileService</li>
+                <li><strong>Storage:</strong> RDS or DynamoDB</li>
+                <li><strong>Isolation:</strong> Per-profile data separation</li>
+            </ul>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">aws.amazon.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="offline-downloads-modal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">Offline Downloads</h2>
+        <p class="modal-subtitle">DRM-secure downloads for offline playback</p>
+        <div class="modal-body">
+            <p>Allows users to download video content that is securely tied to their device and account.</p>
+            <ul>
+                <li><strong>Security:</strong> DRM with encryption keys</li>
+                <li><strong>UX:</strong> Background download queues, prefetching</li>
+                <li><strong>Binding:</strong> Tied to device and user</li>
+            </ul>
+            <div class="reference-list">
+                <h3>References</h3>
+                <ul>
+                    <li><a href="#">aws.amazon.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add similar modal templates for remaining cards following the same structure -->
+
+    <script>
+        // Modular JavaScript structure
+        const App = {
+            // Initialize all functionality
+            init: function() {
+                this.setupSmoothScrolling();
+                this.setupCardAnimations();
+                this.setupParallaxEffect();
+                this.setupStatsCounter();
+                this.setupModalFunctionality();
+            },
+            
+            // Smooth scrolling for navigation
+            setupSmoothScrolling: function() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            },
+            
+            // Card animations
+            setupCardAnimations: function() {
+                const cards = document.querySelectorAll('.card');
+                
+                cards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        card.style.transform = 'translateY(-20px) rotateX(5deg)';
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = 'translateY(0) rotateX(0)';
+                    });
+                });
+            },
+            
+            // Parallax effect
+            setupParallaxEffect: function() {
+                window.addEventListener('scroll', () => {
+                    const scrollPosition = window.pageYOffset;
+                    const hero = document.querySelector('.hero');
+                    hero.style.backgroundPositionY = -scrollPosition * 0.5 + 'px';
+                });
+            },
+            
+            // Stats counter animation
+            setupStatsCounter: function() {
+                const statNumbers = document.querySelectorAll('.stat-number');
+                const statsSection = document.querySelector('.stats');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            statNumbers.forEach(stat => {
+                                const target = +stat.innerText.replace(/[^0-9.]/g, '');
+                                const increment = target / 100;
+                                let current = 0;
+                                
+                                const timer = setInterval(() => {
+                                    current += increment;
+                                    if (current > target) {
+                                        stat.innerText = stat.innerText.replace(/[0-9,.]+/, target.toLocaleString());
+                                        clearInterval(timer);
+                                        return;
+                                    }
+                                    stat.innerText = stat.innerText.replace(/[0-9,.]+/, Math.round(current).toLocaleString());
+                                }, 20);
+                            });
+                            
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(statsSection);
+            },
+            
+            // Modal functionality
+            setupModalFunctionality: function() {
+                const cards = document.querySelectorAll('.card');
+                const modals = document.querySelectorAll('.modal');
+                const closeButtons = document.querySelectorAll('.close-modal');
+                
+                // Open modal when card is clicked
+                cards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        const study = card.getAttribute('data-study');
+                        document.getElementById(`${study}-modal`).style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    });
+                });
+                
+                // Close modals
+                closeButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        modals.forEach(modal => {
+                            modal.style.display = 'none';
+                        });
+                        document.body.style.overflow = 'auto';
+                    });
+                });
+                
+                // Close modal when clicking outside content
+                modals.forEach(modal => {
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            modal.style.display = 'none';
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                });
+            }
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+        });
+    </script>
+</body>
+</html>
