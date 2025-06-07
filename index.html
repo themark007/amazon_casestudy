@@ -1092,7 +1092,7 @@
                 <a href="#">Contact</a>
                 <a href="#">Resources</a>
             </div>
-            <p class="copyright">© 2023 Amazon Business Case Study. This site is for educational purposes only.</p>
+            <p class="copyright">© 2025 Amazon Business Case Study. By Mark</p>
         </div>
     </footer>
 
@@ -2175,27 +2175,229 @@ def update_order_status(order_id, status):
 
 
 
-<div id="user-wishlist-modal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal">&times;</button>
-        <h2 class="modal-title">User Wishlist / Save for Later</h2>
-        <p class="modal-subtitle">Flexible, session-aware saved items system</p>
-        <div class="modal-body">
-            <p>Allows users to save items even without login, and persists them if logged in.</p>
-            <ul>
-                <li><strong>Microservices:</strong> WishlistService, AuthService</li>
-                <li><strong>Storage:</strong> Amazon RDS or DynamoDB</li>
-                <li><strong>Optimization:</strong> Atomic operations, delta writes</li>
-            </ul>
-            <div class="reference-list">
-                <h3>References</h3>
-                <ul>
-                    <li><a href="#">aws.amazon.com</a></li>
-                </ul>
-            </div>
-        </div>
+<div id="user-wishlist-modal" class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+  <div class="modal-content" style="background-color: #232F3E; color: #F5F5F5; width: 90%; max-width: 800px; border-radius: 10px; padding: 20px; position: relative; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-height: 90vh; overflow-y: auto;">
+    
+    <!-- Close Button -->
+    <button class="close-modal" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#FF9900; font-size:1.5rem; cursor:pointer;">&times;</button>
+    
+    <!-- Title & Subtitle -->
+    <h2 class="modal-title" style="font-size:2rem; margin-bottom:5px; background:linear-gradient(to right,#FF9900,#ffcc66); -webkit-background-clip:text; -webkit-text-fill-color:transparent; display:inline-block;">
+      User Wishlist / Save for Later
+    </h2>
+    <p class="modal-subtitle" style="font-size:1rem; color:rgba(245,245,245,0.8); margin-bottom:20px;">
+      Flexible, session-aware saved items system
+    </p>
+    
+    <div class="modal-body" style="line-height:1.6;">
+      
+      <!-- Introduction -->
+      <h3 style="font-size:1.5rem; color:#FF9900; margin-top:20px; margin-bottom:10px;">Introduction & Overall Picture</h3>
+      <p>
+        The WishlistService lets users save items for later—even anonymously—and persists them upon login. It uses delta writes to minimize overhead, supports atomic adds/removes, and integrates with AuthService to merge session and user wishlists.
+      </p>
+      
+      <!-- Unified Business Cases -->
+      <h3 style="font-size:1.5rem; color:#FF9900; margin-top:20px; margin-bottom:10px;">Unified Business Cases</h3>
+      <p>
+        1. <strong>Anonymous Save &amp; Persist</strong><br>
+        2. <strong>Cross-Device Sync</strong><br>
+        3. <strong>Merge Session &amp; User Lists</strong><br>
+        4. <strong>Fast Lookup &amp; Search</strong><br>
+        5. <strong>Top-K Frequent Saves</strong>
+      </p>
+      
+      <!-- Architecture -->
+      <h3 style="font-size:1.5rem; color:#FF9900; margin-top:20px; margin-bottom:10px;">Architecture</h3>
+      <ul style="margin-left:20px; margin-bottom:15px;">
+        <li><strong>Microservices:</strong> WishlistService, AuthService</li>
+        <li><strong>Storage:</strong> DynamoDB for session lists; RDS for durable user lists</li>
+        <li><strong>Cache:</strong> Redis for hot wishlist lookups</li>
+        <li><strong>Sync Method:</strong> REST API + JWT for session ↔ user merge</li>
+        <li><strong>Optimization:</strong> Delta writes—only diffs are persisted</li>
+      </ul>
+      
+      <!-- Data Structures & C++ Snippets -->
+      <h3 style="font-size:1.5rem; color:#FF9900; margin-top:20px; margin-bottom:10px;">Data Structures &amp; C++ Snippets</h3>
+      
+      <!-- 1. unordered_map + vector for session & user lists -->
+      <h4 style="font-size:1.2rem; color:#146EB4; margin-top:15px; margin-bottom:8px;">1. Session &amp; User Maps (O(1) add/remove)</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// wishlist.hpp
+#include &lt;unordered_map&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+class WishlistService {
+  // key = session_id or user_id
+  std::unordered_map&lt;std::string, std::vector&lt;std::string&gt;&gt; lists;
+public:
+  void addItem(const std::string&amp; key, const std::string&amp; item) {
+    lists[key].push_back(item);
+  }
+  void removeItem(const std::string&amp; key, const std::string&amp; item) {
+    auto&amp; v = lists[key];
+    v.erase(std::remove(v.begin(), v.end(), item), v.end());
+  }
+};
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: std::unordered_map O(1) operations </em>
+      </p>
+      
+      <!-- 2. Diff write algorithm (set difference) -->
+      <h4 style="font-size:1.2rem; color:#146EB4; margin-top:15px; margin-bottom:8px;">2. Delta Writes (O(n))</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// delta.hpp
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+std::vector&lt;std::string&gt; computeDiff(
+  const std::vector&lt;std::string&gt;&amp; oldList,
+  const std::vector&lt;std::string&gt;&amp; newList) {
+  std::vector&lt;std::string&gt; diff;
+  for (auto&amp; item : newList)
+    if (std::find(oldList.begin(), oldList.end(), item) == oldList.end())
+      diff.push_back(item);
+  return diff; // items to add
+}
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: set difference – GeeksforGeeks </em>
+      </p>
+      
+      <!-- 3. Trie for wishlist search -->
+      <h4 style="font-size:1.2rem; color:#146EB4; margin-top:15px; margin-bottom:8px;">3. Trie for Item Search (O(L + N))</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// search_trie.hpp
+#include &lt;array&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+const int ALPHA=26;
+struct TNode{bool end; std::array&lt;TNode*,ALPHA&gt;c; TNode():end(false){c.fill(nullptr);}};
+
+class Trie {
+  TNode* root = new TNode();
+public:
+  void insert(const std::string&amp; w){
+    TNode* n=root;
+    for(char ch:w){
+      int i=tolower(ch)-'a';
+      if(!n->c[i]) n->c[i]=new TNode();
+      n=n->c[i];
+    }
+    n->end=true;
+  }
+  void dfs(TNode* n,std::string s,std::vector&lt;std::string&gt;&amp;o){
+    if(n->end)o.push_back(s);
+    for(int i=0;i&lt;ALPHA;++i)
+      if(n->c[i])dfs(n->c[i],s+char('a'+i),o);
+  }
+  std::vector&lt;std::string&gt; suggestions(const std::string&amp; p){
+    std::vector&lt;std::string&gt;o; TNode* n=root;
+    for(char ch:p){int i=tolower(ch)-'a'; if(!n->c[i])return o; n=n->c[i];}
+    dfs(n,p,o); return o;
+  }
+};
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: Trie autocomplete – GeeksforGeeks </em>
+      </p>
+      
+      <!-- 4. Min-Heap for Top-K saved items -->
+      <h4 style="font-size:1.2rem; color:#146EB4; margin-top:15px; margin-bottom:8px;">4. Min‐Heap Top‐K (O(n log K))</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// topk.hpp
+#include &lt;queue&gt;&lt;vector&gt;&lt;utility&gt;
+using PI = std::pair&lt;int,std::string&gt;; // (count,item)
+
+std::vector&lt;std::string&gt; topK(const std::vector&lt;PI&gt;&amp; counts,int K){
+  auto cmp=[](PI&a,PI&b){return a.first&gt;b.first;};
+  std::priority_queue&lt;PI,vector&lt;PI&gt;,decltype(cmp)&gt;pq(cmp);
+  for(auto&amp;c:counts){
+    if((int)pq.size()<K) pq.push(c);
+    else if(c.first&gt;pq.top().first){pq.pop();pq.push(c);}
+  }
+  vector&lt;string&gt; out;
+  while(!pq.empty()){out.push_back(pq.top().second);pq.pop();}
+  return out;
+}
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: Top‐K elements – GeeksforGeeks </em>
+      </p>
+      
+      <!-- 5. BFS recommendations from wishlist graph -->
+      <h4 style="font-size:1.2rem; color:#146EB4; margin-top:15px; margin-bottom:8px;">5. BFS on Item‐Graph (O(V+E))</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// recommend_bfs.hpp
+#include &lt;vector&gt;&lt;queue&gt&lt;string&gt;
+
+void bfsRec(const std::vector&lt;std::vector&lt;int&gt;&gt;&amp; adj,int start, vector&lt;bool&gt;&amp;vis){
+  queue&lt;int&gt;q; vis[start]=true; q.push(start);
+  while(!q.empty()){
+    int u=q.front();q.pop();
+    // recommend items in adj[u]
+    for(int v:adj[u]) if(!vis[v]){vis[v]=true; q.push(v);}
+  }
+}
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: BFS complexity – GeeksforGeeks </em>
+      </p>
+      
+      <!-- Efficiency Analysis -->
+      <h3 style="font-size:1.5rem; color:#FF9900; margin-top:20px; margin-bottom:10px;">Efficiency Analysis</h3>
+      <ul style="margin-left:20px; margin-bottom:15px;">
+        <li><strong>unordered_map + vector:</strong> O(1) add/remove, O(n) scan</li>
+        <li><strong>Delta writes:</strong> O(n) to compute diffs</li>
+        <li><strong>Trie search:</strong> O(L+N) for prefix N results</li>
+        <li><strong>Min‐heap top‐K:</strong> O(n log K)</li>
+        <li><strong>BFS on item graph:</strong> O(V+E) for recommendations</li>
+      </ul>
+      
+      <!-- System Diagram -->
+      <h3 style="font-size:1.5rem; color:#FF9900; margin-top:20px; margin-bottom:10px;">System Diagram</h3>
+      <p style="margin-bottom:10px;">
+        View the Wishlist architecture:  
+        <a href="https://example.com/wishlist-diagram" style="color:#FF9900; text-decoration:underline;" target="_blank">
+          Wishlist System Diagram
+        </a>
+      </p>
+      <p style="text-align:center; margin-bottom:15px;">
+        <img src="https://example.com/wishlist-diagram" alt="Wishlist Diagram" style="max-width:100%; border:2px solid #FF9900; border-radius:5px;" />
+      </p>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Diagram Source: Internal Design Docs</em>
+      </p>
+      
+      <!-- Inferences -->
+      <h3 style="font-size:1.5rem; color:#FF9900; margin-top:20px; margin-bottom:10px;">Inferences</h3>
+      <ul style="margin-left:20px; margin-bottom:15px;">
+        <li>O(1) wishlist ops via hash map yield instant UX feedback.</li>
+        <li>Delta writes reduce DB load by persisting only changes.</li>
+        <li>Trie accelerates item searches within large wishlists.</li>
+        <li>Top‐K min‐heap surfaces most popular saved items efficiently.</li>
+        <li>BFS on co‐saved item graph enables context‐aware recommendations.</li>
+      </ul>
+      
+      <!-- References -->
+      <div class="reference-list" style="margin-top:20px; padding-top:10px; border-top:1px solid rgba(245,245,245,0.2);">
+        <h3 style="font-size:1.3rem; color:#FF9900; margin-bottom:10px;">References</h3>
+        <ul style="margin-left:20px; color:#F5F5F5;">
+          <li><a href="https://en.cppreference.com/w/cpp/container/unordered_map" style="color:#146EB4; text-decoration:underline;" target="_blank">std::unordered_map – cppreference</a></li>
+          <li><a href="https://www.geeksforgeeks.org/set-difference-in-c/" style="color:#146EB4; text-decoration:underline;" target="_blank">Set Difference – GfG</a> </li>
+          <li><a href="https://www.geeksforgeeks.org/trie-data-structure/" style="color:#146EB4; text-decoration:underline;" target="_blank">Trie Data Structure – GfG</a> </li>
+          <li><a href="https://www.geeksforgeeks.org/find-top-k-numbers-array/" style="color:#146EB4; text-decoration:underline;" target="_blank">Top-K Elements – GfG</a> </li>
+          <li><a href="https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/" style="color:#146EB4; text-decoration:underline;" target="_blank">BFS – GfG</a> </li>
+          <li><a href="https://aws.amazon.com" style="color:#146EB4; text-decoration:underline;" target="_blank">aws.amazon.com</a></li>
+        </ul>
+      </div>
+      
     </div>
+  </div>
 </div>
+
 
 
 
@@ -2824,52 +3026,453 @@ std::vector&lt;double&gt; dijkstra(int src, const std::vector&lt;std::vector&lt;
 </div>
 
 
-<div id="playback-sync-modal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal">&times;</button>
-        <h2 class="modal-title">Playback Progress Sync</h2>
-        <p class="modal-subtitle">Seamless resume across platforms</p>
-        <div class="modal-body">
-            <p>Ensures users can pick up playback where they left off, across devices.</p>
-            <ul>
-                <li><strong>Service:</strong> PlaybackService</li>
-                <li><strong>Storage:</strong> Redis or DynamoDB</li>
-                <li><strong>Sync Method:</strong> REST API</li>
-                <li><strong>Conflict Resolution:</strong> Last write wins</li>
-            </ul>
-            <div class="reference-list">
-                <h3>References</h3>
-                <ul>
-                    <li><a href="#">aws.amazon.com</a></li>
-                </ul>
-            </div>
-        </div>
+<div id="playback-sync-modal" class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+  <div class="modal-content" style="background-color: #232F3E; color: #F5F5F5; width: 90%; max-width: 800px; border-radius: 10px; padding: 20px; position: relative; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-height: 90vh; overflow-y: auto;">
+
+    <!-- Close Button -->
+    <button class="close-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #FF9900; font-size: 1.5rem; cursor: pointer;">&times;</button>
+
+    <!-- Title & Subtitle -->
+    <h2 class="modal-title" style="font-size: 2rem; margin-bottom: 5px; background: linear-gradient(to right, #FF9900, #ffcc66); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+      Playback Progress Sync
+    </h2>
+    <p class="modal-subtitle" style="font-size: 1rem; color: rgba(245,245,245,0.8); margin-bottom: 20px;">
+      Seamless resume across platforms
+    </p>
+
+    <!-- Modal Body -->
+    <div class="modal-body" style="line-height: 1.6;">
+
+      <!-- Introduction & Overall Picture -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Introduction &amp; Overall Picture</h3>
+      <p>
+        Playback Progress Sync ensures that users can pause content on one device and resume on another exactly where they left off. The PlaybackService writes and reads the current timestamp position, resolving conflicts with a last-write-wins policy and storing data in Redis for low-latency or DynamoDB for durability.
+      </p>
+
+      <!-- Unified Business Cases -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Unified Business Cases</h3>
+      <p>
+        1. <strong>Immediate Write &amp; Read of Position</strong><br>
+        2. <strong>Cross-Device Consistency</strong><br>
+        3. <strong>Conflict Resolution (LWW)</strong><br>
+        4. <strong>Eventual Consistency Guarantees</strong><br>
+        5. <strong>Analytics on Drop-off Points</strong>
+      </p>
+
+      <!-- Architecture -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Architecture</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>Service:</strong> PlaybackService (stateless REST API)</li>
+        <li><strong>Storage:</strong> Redis for hot reads/writes; DynamoDB for durable archive</li>
+        <li><strong>Sync Method:</strong> REST endpoints with JSON payloads</li>
+        <li><strong>Conflict Resolution:</strong> Last-Write-Wins using server timestamps</li>
+        <li><strong>Event Bus:</strong> Kinesis stream to publish update events for analytics</li>
+      </ul>
+
+      <!-- Data Structures & C++ Snippets -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Data Structures &amp; C++ Snippets</h3>
+
+      <!-- 1. O(1) Lookup of Playback Position -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">1. std::unordered_map for O(1) Position Lookup</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, monospace; font-size: 0.9rem;">
+// playback_cache.hpp
+#pragma once
+#include &lt;unordered_map&gt;
+#include &lt;string&gt;
+
+struct Position { double timestamp; long server_ts; };
+
+class PlaybackCache {
+  std::unordered_map&lt;std::string, Position&gt; cache; // key = user_profile_id
+public:
+  void write(const std::string&amp; id, double pos, long ts) {
+    cache[id] = {pos, ts};
+  }
+  Position* read(const std::string&amp; id) {
+    auto it = cache.find(id);
+    return it != cache.end() ? &it->second : nullptr;
+  }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8;">
+        <em>Reference: average O(1) for std::unordered_map </em>
+      </p>
+
+      <!-- 2. Sorted Map for Timestamp Ordering -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">2. std::map for Time-Ordered Updates (O(log n))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, monospace; font-size: 0.9rem;">
+// timestamp_index.hpp
+#pragma once
+#include &lt;map&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+
+class TimestampIndex {
+  std::map&lt;long, std::pair&lt;std::string,double&gt;&gt; index; // server_ts -> (id, pos)
+public:
+  void record(long ts, const std::string&amp; id, double pos) {
+    index[ts] = {id,pos};
+  }
+  // Retrieve in time order...
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8;">
+        <em>Reference: std::map (B-Tree) complexity O(log n) </em>
+      </p>
+
+      <!-- 3. Priority Queue for Event Ordering -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">3. std::priority_queue for Chronological Event Processing (O(log n))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, monospace; font-size: 0.9rem;">
+// event_queue.hpp
+#pragma once
+#include &lt;queue&gt;
+#include &lt;tuple&gt;
+#include &lt;vector&gt;
+
+using Event = std::tuple&lt;long,std::string,double&gt;; // (ts, id, pos)
+
+struct Cmp { bool operator()(const Event&amp;a,const Event&amp;b){return std::get&lt;0&gt;(a)&gt;std::get&lt;0&gt;(b);} };
+
+class EventQueue {
+  std::priority_queue&lt;Event,std::vector&lt;Event&gt;,Cmp&gt; pq;
+public:
+  void push(long ts,const std::string&amp; id,double pos){ pq.emplace(ts,id,pos); }
+  Event pop() { auto e=pq.top(); pq.pop(); return e; }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8;">
+        <em>Reference: std::priority_queue ordering in O(log n) </em>
+      </p>
+
+      <!-- 4. Vector Clock for Conflict Resolution -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">4. Vector Clock for Causal Ordering (O(k))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, monospace; font-size: 0.9rem;">
+// vector_clock.hpp
+#pragma once
+#include &lt;unordered_map&gt;
+#include &lt;string&gt;
+
+class VectorClock {
+  std::unordered_map&lt;std::string,int&gt; clock; // device_id -> counter
+public:
+  void tick(const std::string&amp; dev){ clock[dev]++; }
+  void merge(const VectorClock&amp; other){
+    for(auto&amp; [d,c]:other.clock)
+      clock[d] = std::max(clock[d], c);
+  }
+};
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8;">
+        <em>Reference: Vector Clocks in Distributed Systems – Leslie Lamport </em>
+      </p>
+
+      <!-- 5. BFS for Device Sync Graph -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">5. BFS for Device-Graph Traversal (O(V+E))</h4>
+      <pre style="background-color: #131A22; color: #F5F5F5; padding: 10px; border-radius: 5px; overflow-x: auto; font-family: Consolas, monospace; font-size: 0.9rem;">
+// device_sync.hpp
+#pragma once
+#include &lt;vector&gt;&lt;queue&gt;
+
+void bfsSync(const std::vector&lt;std::vector&lt;int&gt;&gt;&amp; graph,int start,std::vector&lt;bool&gt;&amp;vis){
+  std::queue&lt;int&gt;q; vis[start]=true; q.push(start);
+  while(!q.empty()){
+    int u=q.front();q.pop();
+    // push sync event to neighbor device u
+    for(int v:graph[u])if(!vis[v]){vis[v]=true; q.push(v);}
+  }
+}
+      </pre>
+      <p style="font-size: 0.9rem; opacity: 0.8;">
+        <em>Reference: BFS complexity O(V+E) </em>
+      </p>
+
+      <!-- Efficiency Analysis -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Efficiency Analysis</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>unordered_map:</strong> O(1) read/write of positions </li>
+        <li><strong>std::map:</strong> O(log n) ordered timestamp index </li>
+        <li><strong>priority_queue:</strong> O(log n) per event push/pop </li>
+        <li><strong>Vector Clock:</strong> O(k) per merge/tick (k = # devices) </li>
+        <li><strong>BFS Graph:</strong> O(V+E) for device notification traversal </li>
+      </ul>
+
+      <!-- System Diagram -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">System Diagram</h3>
+      <p style="margin-bottom: 10px;">
+        View the Playback Sync architecture:  
+        <a href="https://example.com/playback-sync-diagram" style="color:#FF9900; text-decoration:underline;" target="_blank">
+          Playback Sync Diagram
+        </a>
+      </p>
+      <p style="text-align:center; margin-bottom:15px;">
+        <img src="https://example.com/playback-sync-diagram" alt="Playback Sync Diagram" style="max-width:100%; border:2px solid #FF9900; border-radius:5px;" />
+      </p>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Diagram Source: Internal Design Docs</em>
+      </p>
+
+      <!-- Inferences -->
+      <h3 style="font-size:1.5rem; color:#FF9900; margin-top:20px; margin-bottom:10px;">Inferences</h3>
+      <ul style="margin-left:20px; margin-bottom:15px;">
+        <li><strong>O(1) cache lookup</strong> ensures instant resume on any device.</li>
+        <li><strong>Timestamp index</strong> maintains chronologically ordered updates for analytics.</li>
+        <li><strong>Event queue</strong> guarantees ordered processing of playback events.</li>
+        <li><strong>Vector clocks</strong> provide causal consistency across multiple devices.</li>
+        <li><strong>BFS traversal</strong> efficiently propagates sync events through device network.</li>
+      </ul>
+
+      <!-- References -->
+      <div class="reference-list" style="margin-top:20px; padding-top:10px; border-top:1px solid rgba(245,245,245,0.2);">
+        <h3 style="font-size:1.3rem; color:#FF9900; margin-bottom:10px;">References</h3>
+        <ul style="margin-left:20px; color:#F5F5F5;">
+          <li><a href="https://en.cppreference.com/w/cpp/container/unordered_map" style="color:#146EB4; text-decoration:underline;" target="_blank">std::unordered_map – cppreference</a></li>
+          <li><a href="https://en.cppreference.com/w/cpp/container/map" style="color:#146EB4; text-decoration:underline;" target="_blank">std::map – cppreference</a></li>
+          <li><a href="https://en.cppreference.com/w/cpp/container/priority_queue" style="color:#146EB4; text-decoration:underline;" target="_blank">std::priority_queue – cppreference</a></li>
+          <li><a href="https://lamport.azurewebsites.net/pubs/time-clocks.pdf" style="color:#146EB4; text-decoration:underline;" target="_blank">Lamport, “Time, Clocks &amp; Ordering”</a></li>
+          <li><a href="https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/" style="color:#146EB4; text-decoration:underline;" target="_blank">BFS – GeeksforGeeks</a></li>
+          <li><a href="https://aws.amazon.com" style="color:#146EB4; text-decoration:underline;" target="_blank">aws.amazon.com</a></li>
+        </ul>
+      </div>
+
     </div>
+  </div>
 </div>
 
 
 
-<div id="profile-management-modal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal">&times;</button>
-        <h2 class="modal-title">Multiple Profiles Management</h2>
-        <p class="modal-subtitle">Support for user-level personalization</p>
-        <div class="modal-body">
-            <p>Allows different users under the same account to have separate watch history and bookmarks.</p>
-            <ul>
-                <li><strong>Service:</strong> ProfileService</li>
-                <li><strong>Storage:</strong> RDS or DynamoDB</li>
-                <li><strong>Isolation:</strong> Per-profile data separation</li>
-            </ul>
-            <div class="reference-list">
-                <h3>References</h3>
-                <ul>
-                    <li><a href="#">aws.amazon.com</a></li>
-                </ul>
-            </div>
-        </div>
+
+<div id="profile-management-modal" class="modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+  <div class="modal-content" style="background-color: #232F3E; color: #F5F5F5; width: 90%; max-width: 800px; border-radius: 10px; padding: 20px; position: relative; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-height: 90vh; overflow-y: auto;">
+    <!-- Close -->
+    <button class="close-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #FF9900; font-size: 1.5rem; cursor: pointer;">&times;</button>
+
+    <!-- Title -->
+    <h2 class="modal-title" style="font-size: 2rem; margin-bottom: 5px; background: linear-gradient(to right, #FF9900, #ffcc66); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+      Multiple Profiles Management
+    </h2>
+    <p class="modal-subtitle" style="font-size: 1rem; color: rgba(245,245,245,0.8); margin-bottom: 20px;">
+      Support for user‐level personalization
+    </p>
+
+    <div class="modal-body" style="line-height: 1.6;">
+
+      <!-- Introduction -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Introduction &amp; Overall Picture</h3>
+      <p>
+        Amazon allows households to share one account yet maintain distinct profiles, each with separate watch histories, bookmarks, recommendations, and parental controls. The ProfileService ensures strict data isolation, low‐latency retrieval, and seamless switching between profiles.
+      </p>
+
+      <!-- Business Cases -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Unified Business Cases</h3>
+      <p>
+        1. <strong>Profile CRUD &amp; Isolation</strong><br>
+        2. <strong>Fast Profile Lookup</strong><br>
+        3. <strong>Profile‐Name Search &amp; Autocomplete</strong><br>
+        4. <strong>Social Graph Connections</strong><br>
+        5. <strong>Sorted History &amp; Recommendations</strong>
+      </p>
+
+      <!-- Architecture -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Architecture</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>Service:</strong> ProfileService (stateless microservice)</li>
+        <li><strong>Storage:</strong> DynamoDB (partitioned B‐tree) or RDS (B‐tree indexes)</li>
+        <li><strong>Cache:</strong> Redis for hot profile lookups</li>
+        <li><strong>Isolation:</strong> Per‐profile tenant keys and IAM policies</li>
+        <li><strong>Indexing:</strong> ElasticSearch for name autocomplete</li>
+      </ul>
+
+      <!-- Data Structures & C++ Snippets -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Data Structures &amp; C++ Snippets</h3>
+
+      <!-- 1. Hash‐Map for Profile Lookup -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">1. std::unordered_map for O(1) Lookup</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// profile_lookup.hpp
+#pragma once
+#include &lt;unordered_map&gt;
+#include &lt;string&gt;
+
+struct Profile { std::string id, name; /*…*/ };
+
+class ProfileCache {
+  std::unordered_map&lt;std::string, Profile&gt; cache;
+public:
+  void upsert(const Profile&amp; p) { cache[p.id] = p; }
+  Profile* get(const std::string&amp; id) {
+    auto it = cache.find(id);
+    return it != cache.end() ? &it->second : nullptr;
+  }
+};
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: average O(1) for unordered_map – cppreference.com :contentReference[oaicite:0]{index=0}</em>
+      </p>
+
+      <!-- 2. B‐Tree (std::map) for Sorted History -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">2. std::map (B‐Tree) for Time‐Ordered History</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// history.hpp
+#pragma once
+#include &lt;map&gt;
+#include &lt;chrono&gt;
+#include &lt;string&gt;
+
+class WatchHistory {
+  std::map&lt;std::chrono::time_point&lt;std::chrono::steady_clock&gt;, std::string&gt; events;
+public:
+  void record(const std::string&amp; vid) {
+    events[std::chrono::steady_clock::now()] = vid;
+  }
+  // iterate in time order
+};
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: B‐Tree indexing in RDS/DynamoDB – AWS Aurora docs :contentReference[oaicite:1]{index=1}</em>
+      </p>
+
+      <!-- 3. Trie for Profile Name Autocomplete -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">3. Trie for Name Autocomplete (O(L+N))</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// trie.hpp
+#pragma once
+#include &lt;array&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+static const int ALPHA = 26;
+struct Node { bool end=false; std::array&lt;Node*,ALPHA&gt; c; Node(){c.fill(nullptr);} };
+
+class NameTrie {
+  Node* root = new Node();
+public:
+  void insert(const std::string&amp; s) {
+    Node* n=root;
+    for(char ch:s){
+      int i=tolower(ch)-'a';
+      if(!n->c[i]) n->c[i]=new Node();
+      n=n->c[i];
+    }
+    n->end=true;
+  }
+  void dfs(Node* n,std::string cur,std::vector&lt;std::string&gt;&amp;out){
+    if(n->end) out.push_back(cur);
+    for(int i=0;i&lt;ALPHA;++i)
+      if(n->c[i]) dfs(n->c[i],cur+char('a'+i),out);
+  }
+  void suggestions(const std::string&amp; p,std::vector&lt;std::string&gt;&amp;out){
+    Node* n=root; for(char ch:p){int i=tolower(ch)-'a'; if(!n->c[i])return; n=n->c[i];}
+    dfs(n,p,out);
+  }
+};
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: Trie in C++ – GeeksforGeeks :contentReference[oaicite:2]{index=2}</em>
+      </p>
+
+      <!-- 4. BFS for Profile Social Graph -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">4. BFS on Profile Social Graph (O(V+E))</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// graph.hpp
+#pragma once
+#include &lt;vector&gt;&lt;queue&gt;&lt;string&gt;
+
+void bfs(const std::vector&lt;std::vector&lt;int&gt;&gt;&amp; adj,int start, std::vector&lt;bool&gt;&amp;vis){
+  std::queue&lt;int&gt;q; vis[start]=true; q.push(start);
+  while(!q.empty()){
+    int u=q.front(); q.pop();
+    // process user u
+    for(int v:adj[u]) if(!vis[v]){vis[v]=true; q.push(v);}
+  }
+}
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: BFS complexity O(V+E) – GeeksforGeeks :contentReference[oaicite:3]{index=3}</em>
+      </p>
+
+      <!-- 5. AVL Tree for Balanced Profile Indexing -->
+      <h4 style="font-size: 1.2rem; color: #146EB4; margin-top: 15px; margin-bottom: 8px;">5. AVL Tree for Balanced Profile IDs (O(log n))</h4>
+      <pre style="background:#131A22; color:#F5F5F5; padding:10px; border-radius:5px; overflow-x:auto; font-family:Consolas, monospace; font-size:0.9rem;">
+// avl.hpp
+#pragma once
+#include &lt;algorithm&gt;
+
+struct Node{int key,h;Node*l,*r;Node(int k):key(k),h(1),l(0),r(0){}};
+
+int height(Node* n){return n?n->h:0;}
+int bf(Node* n){return height(n->l)-height(n->r);}
+Node* rotateR(Node* y){auto*x=y->l; y->l=x->r; x->r=y; y->h=1+std::max(height(y->l),height(y->r)); x->h=1+std::max(height(x->l),height(x->r)); return x;}
+Node* rotateL(Node* x){auto*y=x->r; x->r=y->l; y->l=x; x->h=1+std::max(height(x->l),height(x->r)); y->h=1+std::max(height(y->l),height(y->r)); return y;}
+
+Node* insert(Node* node,int k){
+  if(!node) return new Node(k);
+  if(k&lt;node->key) node->l=insert(node->l,k);
+  else if(k&gt;node->key) node->r=insert(node->r,k);
+  else return node;
+  node->h=1+std::max(height(node->l),height(node->r));
+  int balance=bf(node);
+  if(balance&gt;1 &amp;&amp; k&lt;node->l->key) return rotateR(node);
+  if(balance&lt;-1 &amp;&amp; k&gt;node->r->key) return rotateL(node);
+  if(balance&gt;1 &amp;&amp; k&gt;node->l->key){ node->l=rotateL(node->l); return rotateR(node); }
+  if(balance&lt;-1 &amp;&amp; k&lt;node->r->key){ node->r=rotateR(node->r); return rotateL(node); }
+  return node;
+}
+      </pre>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Reference: AVL insertion O(log n) – GeeksforGeeks :contentReference[oaicite:4]{index=4}</em>
+      </p>
+
+      <!-- Efficiency Analysis -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">Efficiency Analysis</h3>
+      <ul style="margin-left: 20px; margin-bottom: 15px;">
+        <li><strong>unordered_map:</strong> O(1) average lookup/insertion :contentReference[oaicite:5]{index=5}</li>
+        <li><strong>std::map (B‐Tree):</strong> O(log n) insert/search; supports range queries :contentReference[oaicite:6]{index=6}</li>
+        <li><strong>Trie:</strong> O(L + N) for prefix search, L=length, N=# suggestions :contentReference[oaicite:7]{index=7}</li>
+        <li><strong>BFS Graph:</strong> O(V + E) for social‐graph traversal :contentReference[oaicite:8]{index=8}</li>
+        <li><strong>AVL Tree:</strong> O(log n) for balanced indexing of profile IDs :contentReference[oaicite:9]{index=9}</li>
+      </ul>
+
+      <!-- Diagram -->
+      <h3 style="font-size: 1.5rem; color: #FF9900; margin-top: 20px; margin-bottom: 10px;">System Diagram</h3>
+      <p style="margin-bottom: 10px;">
+        View the Profile Management architecture:  
+        <a href="https://example.com/profile-management-diagram" style="color:#FF9900; text-decoration:underline;" target="_blank">
+          Profile Management Diagram
+        </a>
+      </p>
+      <p style="text-align:center; margin-bottom:15px;">
+        <img src="https://example.com/profile-management-diagram" alt="Profile Management Diagram" style="max-width:100%; border:2px solid #FF9900; border-radius:5px;" />
+      </p>
+      <p style="font-size:0.9rem; opacity:0.8;">
+        <em>Diagram Source: Internal Design Docs</em>
+      </p>
+
+      <!-- Inferences -->
+      <h3 style="font-size:1.5rem; color:#FF9900; margin-top:20px; margin-bottom:10px;">Inferences</h3>
+      <ul style="margin-left:20px; margin-bottom:15px;">
+        <li><strong>O(1) profile lookup</strong> via hash map ensures seamless profile switching.</li>
+        <li><strong>B-Tree sorting</strong> enables chronological history queries and TTL expirations.</li>
+        <li><strong>Trie autocomplete</strong> improves UX when selecting from many profiles.</li>
+        <li><strong>Graph traversal</strong> supports friend‐and‐family linkage for shared recommendations.</li>
+        <li><strong>AVL indexing</strong> maintains balanced storage for profile‐ID range scans.</li>
+      </ul>
+
+      <!-- References -->
+      <div class="reference-list" style="margin-top:20px; padding-top:10px; border-top:1px solid rgba(245,245,245,0.2);">
+        <h3 style="font-size:1.3rem; color:#FF9900; margin-bottom:10px;">References</h3>
+        <ul style="margin-left:20px; color:#F5F5F5;">
+          <li><a href="https://en.cppreference.com/w/cpp/container/unordered_map" style="color:#146EB4; text-decoration:underline;" target="_blank">std::unordered_map – cppreference</a> :contentReference[oaicite:10]{index=10}</li>
+          <li><a href="https://aws.amazon.com/blogs/database/index-types-supported-in-amazon-aurora-postgresql-and-amazon-rds-for-postgresql-b-tree/" style="color:#146EB4; text-decoration:underline;" target="_blank">B-Tree Indexing – AWS Aurora</a> :contentReference[oaicite:11]{index=11}</li>
+          <li><a href="https://www.geeksforgeeks.org/trie-data-structure-in-cpp/" style="color:#146EB4; text-decoration:underline;" target="_blank">Trie Data Structure – GfG</a> :contentReference[oaicite:12]{index=12}</li>
+          <li><a href="https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/" style="color:#146EB4; text-decoration:underline;" target="_blank">BFS – GfG</a> :contentReference[oaicite:13]{index=13}</li>
+          <li><a href="https://www.geeksforgeeks.org/insertion-in-an-avl-tree/" style="color:#146EB4; text-decoration:underline;" target="_blank">AVL Insert – GfG</a> :contentReference[oaicite:14]{index=14}</li>
+        </ul>
+      </div>
+
     </div>
+  </div>
 </div>
+
 
 
 <div id="offline-downloads-modal" class="modal">
